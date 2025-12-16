@@ -2,19 +2,18 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 import Home from "@/pages/Home.vue"
-import ProductCard from "@/components/ProductCard.vue";
-
+import ProductDetails from "../pages/ProductDetails.vue";
 const routes = [
     { 
         path: "/",
         name: "Home",
         component:Home 
     },
-    {
-        path: "/ProductCard",
-        name: "ProductCard",
-        component: ProductCard
-    }
+    { 
+        path: "/product/:id", 
+        component: ProductDetails 
+
+    },
 ];
 
 export default createRouter({

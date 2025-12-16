@@ -1,51 +1,39 @@
 <template>
-  <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-4 relative">
-    <!-- Discount Badge -->
-    <span
-      v-if="product.discount"
-      class="absolute top-3 right-3 bg-red-500 text-white text-xs px-2 py-1 rounded-full"
-    >
-      -{{ product.discount }}%
-    </span>
-
+  <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4">
     <!-- Product Image -->
     <img
       :src="product.image"
-      alt="product"
-      class="h-44 w-full object-contain mb-4"
+      :alt="product.title"
+      class="w-full h-40 object-contain mb-4"
     />
 
-    <!-- Rating -->
-    <div class="flex items-center text-yellow-400 text-sm mb-1">
-      ★★★★☆
-      <span class="text-gray-500 ml-2">({{ product.rating }})</span>
-    </div>
-
-    <!-- Product Name -->
-    <h3 class="font-semibold text-gray-800 mb-2">
-      {{ product.name }}
+    <!-- Product Title -->
+    <h3 class="text-lg font-semibold mb-1">
+      {{ product.title }}
     </h3>
 
+    <!-- Category -->
+    <p class="text-sm text-gray-500 mb-2 capitalize">
+      {{ product.category }}
+    </p>
+
+    <!-- Description -->
+    <p class="text-sm text-gray-600 mb-3 line-clamp-2">
+      {{ product.description }}
+    </p>
+
     <!-- Price -->
-    <div class="flex items-center gap-2">
-      <span class="text-pink-600 font-bold text-lg">
-        ₹{{ product.price }}
+    <div class="flex justify-between items-center">
+      <span class="text-lg font-bold text-green-600">
+        ₹ {{ product.price }}
       </span>
 
-      <span
-        v-if="product.oldPrice"
-        class="text-gray-400 line-through text-sm"
-      >
-        ₹{{ product.oldPrice }}
-      </span>
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+       @click="addCart">
+        Add to Cart
+      </button>
     </div>
-
-    <!-- Add to Cart Button -->
-    <button
-      class="absolute bottom-4 right-4 bg-pink-600 hover:bg-pink-700 text-white p-2 rounded-full"
-    >
-      🛒
-    </button>
   </div>
 </template>
 
@@ -53,7 +41,7 @@
 defineProps({
   product: {
     type: Object,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 </script>
