@@ -34,6 +34,7 @@
         Add to Cart
       </button>
     </div>
+
   </div>
 </template>
 

@@ -36,11 +36,22 @@
                  text-xs font-bold rounded-full px-1.5"
         >
         <!-- cartcount -->
-        <!-- {{ cartCount }} -->
-        2
+        {{ cartCount }}
+
         </span>
         </router-link>
       </div>
     </div>
   </header>
 </template>
+
+
+<script>
+export default {
+  computed: {
+    cartCount() {
+      return this.$store.getters.cartCount;
+    }
+  }
+}
+</script>
