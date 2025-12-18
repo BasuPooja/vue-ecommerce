@@ -37,7 +37,7 @@ export default createStore({
     getters:{
         totalPrice(state){
             return state.cart.reduce(
-                (total,item) => total+item+price*item.qty,
+                (total,item) => total + item.price * item.qty,
                 0
             );
         },
