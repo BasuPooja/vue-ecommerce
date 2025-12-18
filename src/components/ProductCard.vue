@@ -34,14 +34,25 @@
         Add to Cart
       </button>
     </div>
+
   </div>
 </template>
 
 <script setup>
-defineProps({
+
+import { useStore } from "vuex"
+const store = useStore()
+
+const props = defineProps({
   product: {
     type: Object,
     required: true
   }
-})
+});
+
+
+function addCart(){
+  store.commit("addItem", props.product)
+}
+
 </script>

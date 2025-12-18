@@ -45,6 +45,7 @@ import HeroBanner from "@/components/HeroBanner.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import { products } from "@/services/products";
 
+
 const categories = ["All", "computer", "solar"];
 const activeCategory = ref("All");
 
@@ -52,4 +53,16 @@ const filteredProducts = computed(() => {
   if (activeCategory.value === "All") return products;
   return products.filter(p => p.category === activeCategory.value);
 });
+</script>
+<script>
+  export default{
+    props:{
+      product: Object
+    },
+    method:{
+      addCart(){
+        this.$store.comit("addItem", this.product);
+      }
+    }
+  };
 </script>
