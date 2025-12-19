@@ -53,3 +53,58 @@ const filteredProducts = computed(() => {
   return products.filter(p => p.category === activeCategory.value);
 });
 </script>
+<<<<<<< Updated upstream
+=======
+
+<script>
+
+  import appHeader from "@/components/Header.vue";
+  import HeroBanner from "@/components/HeroBanner.vue";
+  import ProductCard from "@/components/ProductCard.vue";
+  import { products } from "@/services/products";
+
+
+  export default{
+    props:{
+      product: Object
+    },
+
+    components:{
+      appHeader,
+      HeroBanner,
+      ProductCard
+    },
+    data() {
+      return{ 
+        categories: ["All", "computer", "solar"],
+        activeCategory:"All"
+      };
+    },
+
+    computed: {
+      searchQuery() {
+        return this.$store.getters.searchQuery;
+      },
+
+      filteredProducts() {
+        let result = products;
+        
+        // category filter
+        if(this.activeCategory!=="All"){
+          result = result.filter(p =>
+            p.category === this.activeCategory
+          );
+        }
+
+        // Search filter 
+        if(this.searchQuery){
+          result = result.filter(p =>
+            p.title.toLowerCase.includes(this.searchQuery.toLowerCase())
+          );
+        }
+        return result;
+      }
+    }
+  };
+</script>
+>>>>>>> Stashed changes

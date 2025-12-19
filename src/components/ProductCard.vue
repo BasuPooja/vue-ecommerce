@@ -37,6 +37,7 @@
   </div>
 </template>
 
+<<<<<<< Updated upstream
 <script setup>
 defineProps({
   product: {
@@ -44,4 +45,21 @@ defineProps({
     required: true
   }
 })
+=======
+<script>
+  
+  export default {
+    props:{
+      product: {
+        type: Object,
+        required: true
+      }
+    },
+    methods:{
+      addCart(){
+        this.$store.commit("addItem", this.product);
+      }
+    }
+  };
+>>>>>>> Stashed changes
 </script>
