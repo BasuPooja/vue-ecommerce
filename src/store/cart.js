@@ -29,11 +29,13 @@ export default createStore({
                 });
             }
         },
+
         removeItem(state,id){
             state.cart = state.cart.filter(
                 item => item.id !== id
             );
         },
+
         updateQuantity(state, {id, qty}){
             const item = state.cart.find(
             item => item.id === id  
@@ -93,4 +95,5 @@ export default createStore({
         }
 
     }
+
 });
