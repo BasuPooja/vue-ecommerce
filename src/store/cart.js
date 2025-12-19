@@ -62,6 +62,7 @@ export default createStore({
         clearCart(state) {
             state.cart = [];
         }
+        
     },
 
     getters:{
@@ -78,7 +79,6 @@ export default createStore({
                 0
             );
         },
-
         searchQuery(state) {
             return state.searchQuery;
         },
