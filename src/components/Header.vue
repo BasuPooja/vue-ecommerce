@@ -18,7 +18,7 @@
                    focus:outline-none focus:ring-2 focus:ring-pink-500"
             v-model="searchItem"
             @input="onSearch"
-          />
+                   />
           <button
             class="px-6 bg-pink-600 text-white rounded-r-full
                    hover:bg-pink-700 transition"
@@ -46,14 +46,26 @@
   </header>
 </template>
 
+
 <script>
 export default {
+  data() {
+    return {
+      searchItem: ""
+    };
+  },
+
   computed: {
     cartCount() {
       return this.$store.getters.cartCount;
     }
-  }
-}
-</script>
+  },
 
+  methods: {
+    onSearch(e) {
+      this.$store.commit("setSearchQuery", e.target.value);
+    }
+  }
+};
+</script>
 

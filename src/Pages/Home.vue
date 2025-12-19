@@ -12,17 +12,34 @@
 
         <!-- Category Filter -->
         <div class="flex gap-4 mb-10">
-          <button
+          <div class="flex gap-6 mb-10">
+        <!-- Category Dropdown -->
+        <select
+          v-model="activeCategory"
+          class="border px-4 py-2 rounded"
+        >
+          <option value="All">Categories</option>
+          <option
             v-for="cat in categories"
             :key="cat"
-            @click="activeCategory = cat"
-            class="px-5 py-2 border rounded-md text-sm"
-            :class="activeCategory === cat
-              ? 'bg-blue-600 text-white'
-              : 'bg-white hover:bg-gray-100'"
+            :value="cat"
           >
             {{ cat }}
-          </button>
+          </option>
+        </select>
+
+        <!-- Sort Dropdown -->
+         
+        <select
+          v-model="sortOrder"
+          class="border px-4 py-2 rounded"
+        >
+        <option value="All">Price Sort</option>
+          <option value="">Sort by price</option>
+          <option value="low">Low → High</option>
+          <option value="high">High → Low</option>
+        </select>
+      </div>
         </div>
 
         <!-- Products Grid -->
@@ -50,23 +67,49 @@ export default {
     HeroBanner,
     ProductCard
   },
+
   data() {
-      return {
-        categories: ["All", "computer", "solar"],
-        activeCategory: "All"
-      };
+    return {
+      categories: ["All", "computer", "solar"],
+      activeCategory: "All",
+      sortOrder: ""
+    };
+  },
+
+  computed: {
+    searchQuery() {
+      return this.$store.getters.searchQuery;
     },
 
-    computed: {
-      filteredProducts() {
-        if (this.activeCategory === "All") {
-          return products;
-        }
-        return products.filter(
+    filteredProducts() {
+      let result = products;
+
+      // category filter
+      if (this.activeCategory !== "All") {
+        result = result.filter(
           p => p.category === this.activeCategory
         );
       }
+
+      // search filter
+      if (this.searchQuery) {
+        result = result.filter(p =>
+          p.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      }
+      
+      //  Sort by price
+      if (this.sortOrder === "low") {
+        result.sort((a, b) => a.price - b.price);
+      }
+
+      if (this.sortOrder === "high") {
+        result.sort((a, b) => b.price - a.price);
+      }
+
+      return result;
     }
-  };
+  }
+};
 </script>
 

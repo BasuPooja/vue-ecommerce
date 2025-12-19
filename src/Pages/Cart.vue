@@ -55,8 +55,7 @@
   </div>
 </template>
 
-<script>
-    
+]<script>
 export default {
   computed: {
     cart() {

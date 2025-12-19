@@ -4,7 +4,8 @@ import { createStore } from "vuex";
 export default createStore({
     state(){
         return{
-            cart:[]
+            cart:[],
+             searchQuery: ""
         };
     },
     mutations:{
@@ -33,7 +34,12 @@ export default createStore({
             if(item && qty > 0){
                 item.qty = qty;
             }
-        },
+        },   
+        
+        setSearchQuery(state,query){
+            state.searchQuery = query;
+        }
+        
     },
 
     getters:{
@@ -50,5 +56,9 @@ export default createStore({
                 0
             );
         },
+        searchQuery(state) {
+            return state.searchQuery;
+        }
+
     }
 });
