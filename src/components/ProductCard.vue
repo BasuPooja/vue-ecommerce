@@ -37,29 +37,20 @@
   </div>
 </template>
 
-<<<<<<< Updated upstream
-<script setup>
-defineProps({
-  product: {
-    type: Object,
-    required: true
-  }
-})
-=======
 <script>
-  
-  export default {
-    props:{
-      product: {
-        type: Object,
-        required: true
-      }
-    },
-    methods:{
-      addCart(){
-        this.$store.commit("addItem", this.product);
-      }
+export default {
+  props: {
+    product: {
+      type: Object,
+      required: true
     }
-  };
->>>>>>> Stashed changes
+  },
+
+  methods: {
+    addCart() {
+      this.$store.commit("addItem", this.product);
+    }
+  }
+};
 </script>
+

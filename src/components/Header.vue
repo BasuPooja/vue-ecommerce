@@ -16,10 +16,6 @@
             placeholder="Search products..."
             class="flex-1 px-5 py-2.5 border border-gray-300 rounded-l-full
                    focus:outline-none focus:ring-2 focus:ring-pink-500"
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
           />
           <button
             class="px-6 bg-pink-600 text-white rounded-r-full
