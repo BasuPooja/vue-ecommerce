@@ -18,7 +18,7 @@
                    focus:outline-none focus:ring-2 focus:ring-pink-500"
             v-model="searchItem"
             @input="onSearch"
-          />
+                   />
           <button
             class="px-6 bg-pink-600 text-white rounded-r-full
                    hover:bg-pink-700 transition"
