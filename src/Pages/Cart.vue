@@ -55,6 +55,7 @@
   </div>
 </template>
 
+<<<<<<< Updated upstream
 <script setup>
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -74,4 +75,31 @@ function updateQty(id, qty) {
     qty: Number(qty)
   });
 }
+=======
+]<script>
+export default {
+  computed: {
+    cart() {
+      return this.$store.state.cart;
+    },
+
+    totalPrice() {
+      return this.$store.getters.totalPrice;
+    }
+  },
+
+  methods: {
+    remove(id) {
+      this.$store.commit("removeItem", id);
+    },
+
+    updateQty(id, qty) {
+      this.$store.commit("updateQuantity", {
+        id,
+        qty: Number(qty)
+      });
+    }
+  }
+};
+>>>>>>> Stashed changes
 </script>
