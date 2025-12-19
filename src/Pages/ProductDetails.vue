@@ -33,20 +33,21 @@
 import { products } from "@/services/products";
 
 export default {
-    data(){
-        return {
-            product: null
-        };
-    },
-    created(){
-        const id = Number(this.$route.params.id);
-        this.product = products.find(p => p.id === id);
-    },
-    methods: {
-        addToCart() {
-        this.$store.commit("addItem", this.product);
-        }
+  data() {
+    return {
+      product: null
+    };
+  },
+
+  created() {
+    const id = Number(this.$route.params.id);
+    this.product = products.find(p => p.id === id);
+  },
+
+  methods: {
+    addToCart() {
+      this.$store.commit("addItem", this.product);
     }
+  }
 };
 </script>
-

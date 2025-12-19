@@ -3,7 +3,8 @@ import { createStore } from "vuex";
 export default createStore({
     state(){
         return{
-            cart:[]
+            cart:[],
+            searchQuery: ""
         };
     },
     mutations:{
@@ -32,20 +33,30 @@ export default createStore({
             if(item && qty > 0){
                 item.qty = qty;
             }
+        },
+
+        setSearchQuery(state,query){
+            state.searchQuery = query;
         }
     },
+
     getters:{
         totalPrice(state){
             return state.cart.reduce(
-                (total,item) => total+item+price*item.qty,
+                (total,item) => total + item.price * item.qty,
                 0
             );
         },
+
         cartCount(state){
             return state.cart.reduce(
                 (count,item) => count + item.qty,
                 0
             );
+        },
+
+        searchQuery(state) {
+            return state.searchQuery;
         }
     }
 });
