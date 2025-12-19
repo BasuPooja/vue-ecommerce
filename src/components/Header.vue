@@ -16,42 +16,32 @@
             placeholder="Search products..."
             class="flex-1 px-5 py-2.5 border border-gray-300 rounded-l-full
                    focus:outline-none focus:ring-2 focus:ring-pink-500"
+
           />
           <button
             class="px-6 bg-pink-600 text-white rounded-r-full
                    hover:bg-pink-700 transition"
           >
-            🔍
+          🔍
           </button>
         </div>
       </div>
 
       <!-- Cart -->
       <div class="relative cursor-pointer">
-        <!-- <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-1 w-1 text-gray-700 hover:text-pink-600 transition"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9m-6-9v9"
-          />
-        </svg> -->
-
+        <router-link to="/cart" class="relative text-xl cursor-pointer">
+        🛒
         <span
           class="absolute -top-2 -right-2 bg-pink-600 text-white
                  text-xs font-bold rounded-full px-1.5"
-        > 🛒
+        >
         <!-- cartcount -->
         <!-- {{ cartCount }} -->
         2
         </span>
+        </router-link>
       </div>
     </div>
   </header>
 </template>
+
