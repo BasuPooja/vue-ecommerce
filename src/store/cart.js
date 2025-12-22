@@ -4,7 +4,6 @@ export default createStore({
     state(){
         return{
             cart:[],
-            searchQuery: ""
         };
     },
     mutations:{
