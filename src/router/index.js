@@ -6,7 +6,7 @@ import ProductDetails from "../pages/ProductDetails.vue";
 import Cart from "@/pages/Cart.vue";
 import Checkout from "@/pages/Checkout.vue";
 import orderSummary from  "@/pages/OrderSummary.vue"
-
+import payment from "@/pages/Payment.vue"
 const routes = [
     { 
         path: "/",
@@ -31,6 +31,11 @@ const routes = [
         path: "/orderSummary",
         name: "OrderSummary",
         component: orderSummary
+    },
+    {
+        path: "/payment",
+        name: "payment",
+        component: payment
     }
 
 ];
