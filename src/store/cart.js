@@ -4,7 +4,6 @@ export default createStore({
     state(){
         return{
             cart:[],
-            searchQuery: ""
         };
     },
     mutations:{
@@ -34,10 +33,6 @@ export default createStore({
                 item.qty = qty;
             }
         },
-
-        setSearchQuery(state,query){
-            state.searchQuery = query;
-        }
     },
 
     getters:{
@@ -54,9 +49,5 @@ export default createStore({
                 0
             );
         },
-
-        searchQuery(state) {
-            return state.searchQuery;
-        }
     }
 });
