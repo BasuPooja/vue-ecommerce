@@ -5,7 +5,12 @@ export default createStore({
     state(){
         return{
             cart:[],
-             searchQuery: ""
+            searchQuery: "",
+            checkout: {
+            name: "",
+            email: "",
+            address: ""
+            }
         };
     },
     mutations:{
@@ -40,8 +45,14 @@ export default createStore({
         
         setSearchQuery(state,query){
             state.searchQuery = query;
-        }
-        
+        },
+         setCheckoutData(state, payload) {
+            state.checkout = payload;
+        },
+
+        clearCart(state) {
+            state.cart = [];
+        }        
     },
 
     getters:{
@@ -61,7 +72,6 @@ export default createStore({
         searchQuery(state) {
             return state.searchQuery;
         }
-
     }
 
 });
