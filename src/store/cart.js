@@ -72,7 +72,6 @@ export default createStore({
         searchQuery(state) {
             return state.searchQuery;
         }
-
     }
 
 });
