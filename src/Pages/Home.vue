@@ -38,32 +38,11 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
-import appHeader from "@/components/Header.vue";
-import HeroBanner from "@/components/HeroBanner.vue";
-import ProductCard from "@/components/ProductCard.vue";
-import { products } from "@/services/products";
-
-const categories = ["All", "computer", "solar"];
-const activeCategory = ref("All");
-
-const filteredProducts = computed(() => {
-  if (activeCategory.value === "All") return products;
-  return products.filter(p => p.category === activeCategory.value);
-});
-</script>
-<<<<<<< Updated upstream
-=======
-
 <script>
-
   import appHeader from "@/components/Header.vue";
   import HeroBanner from "@/components/HeroBanner.vue";
   import ProductCard from "@/components/ProductCard.vue";
   import { products } from "@/services/products";
-
-
   export default{
     props:{
       product: Object
@@ -107,4 +86,4 @@ const filteredProducts = computed(() => {
     }
   };
 </script>
->>>>>>> Stashed changes
+
