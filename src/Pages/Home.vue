@@ -58,6 +58,7 @@
         categories: ["All", "computer", "solar"],
         activeCategory:"All"
       };
+      
     },
 
     computed: {
