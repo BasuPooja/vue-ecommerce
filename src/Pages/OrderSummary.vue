@@ -4,6 +4,7 @@
 
     <!--============ Customer Details ============-->
     <div class="mb-6 border p-4 rounded">
+      <h3><b>Order ID:</b> {{ orderId }}</h3>
       <h2 class="text-xl font-semibold mb-2">Customer Details</h2>
       <p><b>Name:</b> {{ checkout.name }}</p>
       <p><b>Email:</b> {{ checkout.email }}</p>
@@ -37,6 +38,9 @@ export default {
     },
     orderItems() {
       return this.$store.state.orderItems;
+    },
+    orderId() {
+        return this.$store.state.orderId;
     },
     totalPrice() {
       return this.orderItems.reduce(

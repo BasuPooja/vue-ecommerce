@@ -11,7 +11,8 @@ export default createStore({
                 email: "",
                 address: ""
             },
-            orderItems: []
+            orderItems: [],
+            orderId: null 
         };
     },
     mutations:{
@@ -54,6 +55,7 @@ export default createStore({
         placeOrder(state,payload){
             state.checkout = payload.checkout;
             state.orderItems = [...state.cart];
+            state.orderId = "ORD-" + Date.now();
             state.cart = [];
         },
         
@@ -87,6 +89,10 @@ export default createStore({
 
         checkout(state) {
             return state.checkout;
+        },
+        orderId(state) {
+            return state.orderId;
         }
+
     }
 });
