@@ -93,7 +93,6 @@ export default createStore({
         orderId(state) {
             return state.orderId;
         }
-
     }
 
 });
