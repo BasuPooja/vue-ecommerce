@@ -62,9 +62,9 @@
     },
 
     computed: {
-      searchQuery() {
-        return this.$store.getters.searchQuery;
-      },
+      // searchQuery() {
+      //   return this.$store.getters.searchQuery;
+      // },
 
       filteredProducts() {
         let result = products;

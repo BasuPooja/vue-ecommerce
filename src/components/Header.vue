@@ -46,20 +46,12 @@
         <span
           class="absolute -top-2 -right-2 bg-pink-600 text-white
                  text-xs font-bold rounded-full px-1.5"
-        >
-<<<<<<< Updated upstream
-          2
-=======
+        > 🛒
         <!-- cartcount -->
         <!-- {{ cartCount }} -->
-2
->>>>>>> Stashed changes
+        2
         </span>
       </div>
     </div>
   </header>
 </template>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
