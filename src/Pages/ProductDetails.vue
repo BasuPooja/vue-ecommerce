@@ -20,9 +20,8 @@
         </p>
 
         <button 
-          class="bg-blue-600 text-white px-6 py-3 rounded"
-          @click="addToCart"
-          >
+        @click="addToCart"
+        class="bg-blue-600 text-white px-6 py-3 rounded">
           Add to Cart
         </button>
       </div>
@@ -34,22 +33,20 @@
 import { products } from "@/services/products";
 
 export default {
-  data() {
-    return {
-      product: {}
-    };
-  },
-
-  created() {
-    const productId = Number(this.$route.params.id);
-    this.product = products.find(p => p.id === productId);
-  },
-
-  methods: {
-    addToCart() {
-      this.$store.commit("addItem", this.product);
+    data(){
+        return {
+            product: null
+        };
+    },
+    created(){
+        const id = Number(this.$route.params.id);
+        this.product = products.find(p => p.id === id);
+    },
+    methods: {
+        addToCart() {
+        this.$store.commit("addItem", this.product);
+        }
     }
-  }
 };
 </script>
 

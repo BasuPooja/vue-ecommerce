@@ -39,50 +39,32 @@
 </template>
 
 <script>
-  import appHeader from "@/components/Header.vue";
-  import HeroBanner from "@/components/HeroBanner.vue";
-  import ProductCard from "@/components/ProductCard.vue";
-  import { products } from "@/services/products";
-  export default{
-    props:{
-      product: Object
-    },
+import appHeader from "@/components/Header.vue";
+import HeroBanner from "@/components/HeroBanner.vue";
+import ProductCard from "@/components/ProductCard.vue";
+import { products } from "@/services/products";
 
-    components:{
-      appHeader,
-      HeroBanner,
-      ProductCard
-    },
-    data() {
-      return{ 
+export default {
+  components: {
+    appHeader,
+    HeroBanner,
+    ProductCard
+  },
+  data() {
+      return {
         categories: ["All", "computer", "solar"],
-        activeCategory:"All"
+        activeCategory: "All"
       };
-      
     },
 
     computed: {
-      // searchQuery() {
-      //   return this.$store.getters.searchQuery;
-      // },
-
       filteredProducts() {
-        let result = products;
-        
-        // category filter
-        if(this.activeCategory!=="All"){
-          result = result.filter(p =>
-            p.category === this.activeCategory
-          );
+        if (this.activeCategory === "All") {
+          return products;
         }
-
-        // Search filter 
-        if(this.searchQuery){
-          result = result.filter(p =>
-            p.title.toLowerCase.includes(this.searchQuery.toLowerCase())
-          );
-        }
-        return result;
+        return products.filter(
+          p => p.category === this.activeCategory
+        );
       }
     }
   };
