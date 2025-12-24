@@ -45,14 +45,15 @@
         <span>Total</span>
         <span>₹ {{ totalPrice }}</span>
       </div>
-
-      <button
-        class="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700"
-      >
-        Checkout
-      </button>
     </div>
   </div>
+
+  <router-link
+  to="/checkout"
+  class="mt-6 inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700"
+>
+  Checkout
+</router-link>
 </template>
 
 <script>

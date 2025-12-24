@@ -5,7 +5,12 @@ export default createStore({
     state(){
         return{
             cart:[],
-             searchQuery: ""
+            searchQuery: "",
+            checkout: {
+            name: "",
+            email: "",
+            address: ""
+            }
         };
     },
     mutations:{
@@ -22,11 +27,13 @@ export default createStore({
                 });
             }
         },
+
         removeItem(state,id){
             state.cart = state.cart.filter(
                 item => item.id !== id
             );
         },
+
         updateQuantity(state, {id, qty}){
             const item = state.cart.find(
             item => item.id === id  
@@ -38,8 +45,14 @@ export default createStore({
         
         setSearchQuery(state,query){
             state.searchQuery = query;
-        }
-        
+        },
+         setCheckoutData(state, payload) {
+            state.checkout = payload;
+        },
+
+        clearCart(state) {
+            state.cart = [];
+        }        
     },
 
     getters:{
@@ -59,6 +72,6 @@ export default createStore({
         searchQuery(state) {
             return state.searchQuery;
         }
-
     }
+
 });
