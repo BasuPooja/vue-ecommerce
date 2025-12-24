@@ -1,0 +1,53 @@
+
+import { createStore } from "vuex";
+export default createStore({
+    state(){
+        return{
+            cart:[],
+        };
+    },
+    mutations:{
+        addItem(state,product){
+            const existing = state.cart.find(
+                item => item.id === product.id
+            );
+            if (existing){
+                existing.qty += 1;
+            }else{
+                state.cart.push({
+                    ...product,
+                    qty:1
+                });
+            }
+        },
+        removeItem(state,id){
+            state.cart = state.cart.filter(
+                item => item.id !== id
+            );
+        },
+        updateQuantity(state, {id, qty}){
+            const item = state.cart.find(
+            item => item.id === id  
+            );
+            if(item && qty > 0){
+                item.qty = qty;
+            }
+        },
+    },
+
+    getters:{
+        totalPrice(state){
+            return state.cart.reduce(
+                (total,item) => total + item.price * item.qty,
+                0
+            );
+        },
+
+        cartCount(state){
+            return state.cart.reduce(
+                (count,item) => count + item.qty,
+                0
+            );
+        },
+    }
+});
