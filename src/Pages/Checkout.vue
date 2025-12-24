@@ -91,7 +91,7 @@
                 alert("Order placed sucessfully!!");
                 
                 // GO TO ORDER SUMMARY PAGE
-                this.$router.push("/orderSummary");
+                this.$router.push("/payment");
             }
         }
     };

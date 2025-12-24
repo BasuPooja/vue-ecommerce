@@ -12,7 +12,9 @@ export default createStore({
                 address: ""
             },
             orderItems: [],
-            orderId: null 
+            orderId: null ,
+            orderTotal: 0
+
         };
     },
     mutations:{
@@ -55,6 +57,10 @@ export default createStore({
         placeOrder(state,payload){
             state.checkout = payload.checkout;
             state.orderItems = [...state.cart];
+            state.orderTotal = state.cart.reduce(
+                (sum, item) => sum + item.price * item.qty,
+                0
+            );
             state.orderId = "ORD-" + Date.now();
             state.cart = [];
         },
@@ -62,6 +68,7 @@ export default createStore({
         clearCart(state) {
             state.cart = [];
         }
+        
     },
 
     getters:{
@@ -78,7 +85,6 @@ export default createStore({
                 0
             );
         },
-
         searchQuery(state) {
             return state.searchQuery;
         },
@@ -93,6 +99,6 @@ export default createStore({
         orderId(state) {
             return state.orderId;
         }
-
     }
+
 });
