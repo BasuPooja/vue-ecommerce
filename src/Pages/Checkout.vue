@@ -79,19 +79,19 @@
             },
 
 
-            submiOrder(){
+            submitOrder(){
                 if(!this.validate())
                     return;
                 
-                // SAVE CHECKOUT DATA
-                this.$store.commit("setCheckoutData", this.form);
-
-                // CLEAR CART
-                this.$store.commit("clearCart");
+                // PLace order
+                this.$store.commit("placeOrder", {
+                    checkout: this.form
+                });
 
                 alert("Order placed sucessfully!!");
-
-                this.$route.push("/");
+                
+                // GO TO ORDER SUMMARY PAGE
+                this.$router.push("/orderSummary");
             }
         }
     };

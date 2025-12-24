@@ -7,10 +7,12 @@ export default createStore({
             cart:[],
             searchQuery: "",
             checkout: {
-            name: "",
-            email: "",
-            address: ""
-            }
+                name: "",
+                email: "",
+                address: ""
+            },
+            orderItems: [],
+            orderId: null 
         };
     },
     mutations:{
@@ -49,10 +51,17 @@ export default createStore({
          setCheckoutData(state, payload) {
             state.checkout = payload;
         },
-
+        
+        placeOrder(state,payload){
+            state.checkout = payload.checkout;
+            state.orderItems = [...state.cart];
+            state.orderId = "ORD-" + Date.now();
+            state.cart = [];
+        },
+        
         clearCart(state) {
             state.cart = [];
-        }        
+        }
     },
 
     getters:{
@@ -69,9 +78,21 @@ export default createStore({
                 0
             );
         },
+
         searchQuery(state) {
             return state.searchQuery;
-        }
-    }
+        },
 
+        orderItems(state) {
+            return state.orderItems;
+        },
+
+        checkout(state) {
+            return state.checkout;
+        },
+        orderId(state) {
+            return state.orderId;
+        }
+
+    }
 });

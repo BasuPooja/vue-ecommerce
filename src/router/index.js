@@ -5,6 +5,7 @@ import Home from "@/pages/Home.vue"
 import ProductDetails from "../pages/ProductDetails.vue";
 import Cart from "@/pages/Cart.vue";
 import Checkout from "@/pages/Checkout.vue";
+import orderSummary from  "@/pages/OrderSummary.vue"
 
 const routes = [
     { 
@@ -23,8 +24,15 @@ const routes = [
     },
     {
         path: "/checkout",
+        name: Checkout,
         component: Checkout
+    },
+    {
+        path: "/orderSummary",
+        name: "OrderSummary",
+        component: orderSummary
     }
+
 ];
 
 export default createRouter({
