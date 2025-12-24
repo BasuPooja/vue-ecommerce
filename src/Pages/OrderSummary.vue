@@ -43,10 +43,7 @@ export default {
         return this.$store.state.orderId;
     },
     totalPrice() {
-      return this.orderItems.reduce(
-        (sum, item) => sum + item.price * item.qty,
-        0
-      );
+      return this.$store.state.orderTotal;
     }
   }
 };

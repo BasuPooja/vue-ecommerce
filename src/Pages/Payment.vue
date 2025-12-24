@@ -21,7 +21,7 @@ export default {
       return this.$store.state.orderId;
     },
     totalPrice() {
-      return this.$store.getters.totalPrice;
+      return this.$store.state.orderTotal;
     }
   },
   methods: {
