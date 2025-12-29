@@ -1,10 +1,10 @@
 <template>
   <section class="relative w-full h-[420px] overflow-hidden">
-    <!-- <img
-      src="@/assets/image/hero-banner.jpg"
+    <img
+      src="@/assets/image/hero-banner.png"
       class="w-full h-full object-cover"
       alt="Hero Banner"
-    /> -->
+    />
 
     <!-- Overlay content -->
     <div class="absolute inset-0 flex flex-col justify-center px-12 bg-black/40 text-white">

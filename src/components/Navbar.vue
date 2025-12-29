@@ -4,8 +4,10 @@
 
       <!-- LEFT: Logo -->
       <div class="text-3xl font-extrabold tracking-wide text-pink-600">
-        TechSolar
+        <h3>TechSolar</h3>
+
       </div>
+      
 
       <!-- CENTER: Search -->
       <div class="flex w-full max-w-xl mx-10">
