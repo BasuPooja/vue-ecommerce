@@ -4,7 +4,7 @@
     <Navbar v-if="!isAuthPage" />
 
     <!-- PAGE CONTENT -->
-    <main class="flex-1">
+    <main class="w-full">
       <router-view />
     </main>
 </div>

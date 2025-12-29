@@ -1,7 +1,7 @@
 <template>
   <header class="sticky top-0 z-50 bg-white shadow-md border-b">
     <div
-      class="max-w-7xl mx-auto h-20 px-6 grid grid-cols-[auto_1fr_auto] items-center"
+      class="max-w-7xl mx-auto h-20 px-6 flex items-center justify-between"
     >
       <!-- Logo -->
       <div class="text-3xl font-extrabold tracking-wide text-pink-600">
@@ -9,8 +9,8 @@
       </div>
 
       <!-- Search -->
-      <div class="flex justify-center">
-        <div class="flex w-full max-w-xl">
+      <div class="flex items-center space-x-6">
+        <div class="flex w-96">
           <input
             type="text"
             placeholder="Search products..."
@@ -18,7 +18,7 @@
                    focus:outline-none focus:ring-2 focus:ring-pink-500"
             v-model="searchItem"
             @input="onSearch"
-                   />
+             />
           <button
             class="px-6 bg-pink-600 text-white rounded-r-full
                    hover:bg-pink-700 transition"
@@ -31,7 +31,7 @@
       <!-- Cart -->
       <div class="relative cursor-pointer">
         <router-link to="/cart" class="relative text-xl cursor-pointer">
-        🛒
+         <div class="text-2xl">🛒</div>
         <span
           class="absolute -top-2 -right-2 bg-pink-600 text-white
                  text-xs font-bold rounded-full px-1.5"

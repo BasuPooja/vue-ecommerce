@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full h-[520px] overflow-hidden">
+  <section class="relative w-full h-[420px] overflow-hidden">
     <img
       src="@/assets/image/hero-banner.png"
       class="w-full h-full object-cover"
@@ -18,6 +18,5 @@
         Shop Now
       </button>
     </div>
-
   </section>
 </template>

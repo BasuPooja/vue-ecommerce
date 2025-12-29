@@ -54,7 +54,7 @@ export const products = [
     title: "Solar Panel 330W",
     category: "solar",
     price: 12500,
-    image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400&h=400&fit=",
     description: "Durable solar panel for rooftop installation."
   },
   {
@@ -62,7 +62,7 @@ export const products = [
     title: "Solar Inverter",
     category: "solar",
     price: 25000,
-    image: "https://images.unsplash.com/photo-1624397640148-949b1732bbf3?w=400&h=400&fit=crop",
+    image: "",
     description: "Pure sine wave inverter for solar systems."
   },
   {
@@ -70,7 +70,7 @@ export const products = [
     title: "Solar Battery",
     category: "solar",
     price: 32000,
-    image: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400&h=400&fit=crop",
+    image: "",
     description: "Long-lasting battery for solar power storage."
   },
   {
@@ -78,7 +78,7 @@ export const products = [
     title: "Solar Charge Controller",
     category: "solar",
     price: 4500,
-    image: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=400&h=400&fit=crop",
+    image: "",
     description: "Protects batteries from overcharging."
   },
 
@@ -88,7 +88,7 @@ export const products = [
     title: "Smart Watch",
     category: "gadget",
     price: 6999,
-    image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=400&h=400&fit=crop",
+    image: "",
     description: "Track fitness and notifications on the go."
   },
   {
@@ -96,7 +96,7 @@ export const products = [
     title: "Bluetooth Speaker",
     category: "gadget",
     price: 2999,
-    image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop",
+    image: "",
     description: "Portable speaker with deep bass."
   },
   {

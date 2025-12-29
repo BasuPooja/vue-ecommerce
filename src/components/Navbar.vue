@@ -5,6 +5,7 @@
       <!-- LEFT: Logo -->
       <div class="text-3xl font-extrabold tracking-wide text-pink-600">
         <h3>TechSolar</h3>
+
       </div>
       
 
