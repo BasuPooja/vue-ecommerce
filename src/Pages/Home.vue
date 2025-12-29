@@ -11,8 +11,7 @@
         <h1 class="text-3xl font-bold mb-8">Featured Products</h1>
 
         <!-- Category Filter -->
-        <div class="flex gap-4 mb-10">
-          <div class="flex gap-6 mb-10">
+        <div class="flex flex-wrap gap-6 mb-10">
         <!-- Category Dropdown -->
         <select
           v-model="activeCategory"
@@ -39,16 +38,42 @@
           <option value="low">Low → High</option>
           <option value="high">High → Low</option>
         </select>
-      </div>
+        </div>
+
+        <!-- Loading Skeleton -->
+        <div
+          v-if="loading"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          <div
+            v-for="n in 8"
+            :key="n"
+            class="h-72 bg-gray-200 rounded-lg animate-pulse"
+          ></div>
         </div>
 
         <!-- Products Grid -->
-        <div class="grid grid-cols-3 gap-10">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <ProductCard
-            v-for="item in filteredProducts"
+            v-for="item in paginatedProducts"
             :key="item.id"
             :product="item"
           />
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-8 space-x-2">
+          <button
+            v-for="page in totalPages"
+            :key="page"
+            @click="currentPage = page"
+            :class="[
+              'px-4 py-2 rounded-md',
+              currentPage === page ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            ]"
+          >
+            {{ page }}
+          </button>
         </div>
       </main>
     </div>
@@ -72,7 +97,10 @@ export default {
     return {
       categories: ["All", "computer", "solar"],
       activeCategory: "All",
-      sortOrder: ""
+      sortOrder: "",
+      loading: true,
+      currentPage: 1,
+      perPage: 4
     };
   },
 
@@ -80,7 +108,15 @@ export default {
     searchQuery() {
       return this.$store.getters.searchQuery;
     },
+    totalPages() {
+      return Math.ceil(this.filteredProducts.length / this.perPage);
+    },
 
+    paginatedProducts() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.filteredProducts.slice(start, end);
+    },
     filteredProducts() {
       let result = products;
 
@@ -109,7 +145,12 @@ export default {
 
       return result;
     }
-  }
+  },
+  mounted() {
+  setTimeout(() => {
+    this.loading = false;
+  }, 800);
+}
 };
 </script>
 
