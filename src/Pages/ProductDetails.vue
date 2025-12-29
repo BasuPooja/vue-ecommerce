@@ -1,14 +1,13 @@
 <template>
   <div class="max-w-5xl mx-auto px-10 py-12">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-      <div class="relative w-full h-96 bg-gray-50 rounded-lg overflow-hidden">
+      <div class="relative w-full h-80 bg-gray-50 rounded-lg overflow-hidden">
         <img
                 :src="product.image"
-                class="absolute inset-0 w-full h-full object-contain"
+                class="inset-0 w-full h-full object-cover"
               />
       </div>
       
-
       <div>
         <h1 class="text-2xl font-semibold mb-3">
           {{ product.title }}

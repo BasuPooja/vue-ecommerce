@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- HEADER -->
-    <appHeader />
-
     <!-- HERO BANNER -->
     <HeroBanner />
 
@@ -81,14 +78,12 @@
 </template>
 
 <script>
-import appHeader from "@/components/Header.vue";
 import HeroBanner from "@/components/HeroBanner.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import { products } from "@/services/products";
 
 export default {
   components: {
-    appHeader,
     HeroBanner,
     ProductCard
   },

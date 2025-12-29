@@ -1,10 +1,28 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- <Navbar /> -->
-    <router-view/>
+    <!-- COMMON HEADER -->
+    <Navbar v-if="!isAuthPage" />
+
+    <!-- PAGE CONTENT -->
+    <main class="flex-1">
+      <router-view />
+    </main>
 </div>
 </template>
-<script setup>
-import Navbar from "./components/Navbar.vue";
-import HeroBanner from "@/components/HeroBanner.vue";
+<script>
+import Navbar from "@/components/Header.vue";
+import AppFooter from "@/components/Footer.vue";
+
+export default {
+  name: "App",
+  components: {
+    Navbar,
+    AppFooter
+  },
+  computed: {
+    isAuthPage() {
+      return this.$route.meta.authLayout === true;
+    }
+  }
+};
 </script>

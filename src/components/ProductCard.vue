@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col w-full max-w-[280px] mx-auto">
+  <div class="w-full bg-white rounded-lg shadow hover:shadow-lg transition p-4 flex flex-col">
     <!-- Product Image -->
-    <div class="relative w-full h-48 bg-gray-50 rounded-lg mb-4 overflow-hidden">
+    <div class="w-full h-40 bg-gray-100 rounded-lg mb-4 overflow-hidden flex items-center justify-center">
       <img
         :src="product.image"
         :alt="product.title"
-        class="absolute inset-0 w-full h-full object-contain"
+        class="max-h-full object-contain"
       />
     </div>
     <!-- Product Title -->
