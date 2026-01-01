@@ -1,22 +1,23 @@
 <template>
-  <section class="relative w-full h-[420px] overflow-hidden">
+  <section 
+    class="relative w-full h-[360px] md:h-[420px] lg:h-[480px] overflow-hidden"
+    >
+
     <img
       src="@/assets/image/hero-banner.png"
-      class="w-full h-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover"
       alt="Hero Banner"
     />
-
-    <!-- Overlay content -->
-    <div class="absolute inset-0 flex flex-col justify-center px-12 bg-black/40 text-white">
-      <h1 class="text-4xl font-bold mb-3">
-        Your One-Stop Shop for Tech & Solar
-      </h1>
-      <p class="text-lg mb-6">
-        Explore the best deals and latest arrivals
-      </p>
-      <button class="bg-pink-600 w-fit px-6 py-3 rounded-md font-medium">
-        Shop Now
-      </button>
-    </div>
   </section>
+ <!-- Overlay content -->
+    <section class="bg-white py-10">
+      <div class="max-w-7xl mx-auto px-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-3">
+          Your One-Stop Shop for Tech & Solar
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Explore the best deals and latest arrivals
+        </p>
+      </div>
+    </section>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-20">
     <!-- HERO BANNER -->
     <HeroBanner />
 
@@ -8,7 +8,7 @@
         <h1 class="text-3xl font-bold mb-8">Featured Products</h1>
 
         <!-- Category Filter -->
-        <div class="flex flex-wrap gap-6 mb-10">
+        <div class="flex items-center gap-6 mb-10 bg-gray-50 p-4 rounded-lg">
         <!-- Category Dropdown -->
         <select
           v-model="activeCategory"
@@ -30,7 +30,6 @@
           v-model="sortOrder"
           class="border px-4 py-2 rounded"
         >
-        <option value="All">Price Sort</option>
           <option value="">Sort by price</option>
           <option value="low">Low → High</option>
           <option value="high">High → Low</option>
@@ -50,12 +49,21 @@
         </div>
 
         <!-- Products Grid -->
-        <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <ProductCard
             v-for="item in paginatedProducts"
             :key="item.id"
             :product="item"
           />
+        </div>
+
+        <!-- No Products -->
+        <div
+          v-if="!loading && filteredProducts.length === 0"
+          class="text-center py-20 text-gray-500"
+        >
+          <p class="text-xl font-semibold">No products found 😕</p>
+          <p class="mt-2">Try changing filters or search</p>
         </div>
 
         <!-- Pagination -->
@@ -113,7 +121,7 @@ export default {
       return this.filteredProducts.slice(start, end);
     },
     filteredProducts() {
-      let result = products;
+      let result = [...products];
 
       // category filter
       if (this.activeCategory !== "All") {
@@ -141,11 +149,22 @@ export default {
       return result;
     }
   },
+  watch: {
+    activeCategory() {
+      this.currentPage = 1;
+    },
+    sortOrder() {
+      this.currentPage = 1;
+    },
+    searchQuery() {
+      this.currentPage = 1;
+    }
+  },
   mounted() {
-  setTimeout(() => {
-    this.loading = false;
-  }, 800);
-}
+    setTimeout(() => {
+      this.loading = false;
+    }, 800);
+  }
 };
 </script>
 

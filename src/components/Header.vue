@@ -30,10 +30,12 @@
 
       <!-- Cart -->
       <div class="relative cursor-pointer">
-        <router-link to="/cart" class="relative text-xl cursor-pointer">
-         <div class="text-2xl">🛒</div>
-        <span
-          class="absolute -top-2 -right-2 bg-pink-600 text-white
+        <router-link to="/cart" 
+        class="relative inline-flex items-center justify-center w-8 h-8 text-2xl">
+        🛒
+        <span 
+          v-if="cartCount > 0"
+          class="relative  -top-2 -right-2 bg-pink-600 text-white
                  text-xs font-bold rounded-full px-1.5"
         >
         <!-- cartcount -->
@@ -42,6 +44,7 @@
         </span>
         </router-link>
       </div>
+      <br>
     </div>
   </header>
 </template>

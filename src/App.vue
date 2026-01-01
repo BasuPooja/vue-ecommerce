@@ -4,10 +4,10 @@
     <Navbar v-if="!isAuthPage" />
 
     <!-- PAGE CONTENT -->
-    <main class="w-full">
+    <main class="w-full pt-20">
       <router-view />
     </main>
-</div>
+  </div>
 </template>
 <script>
 import Navbar from "@/components/Header.vue";
