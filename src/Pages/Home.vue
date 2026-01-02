@@ -1,8 +1,4 @@
 <template>
-  <div class="bg-red-500 text-white p-4 text-xl">
-  Tailwind Color Test
-</div>
-
   <div class="mt-20">
     <!-- HERO BANNER -->
     <HeroBanner />
