@@ -10,50 +10,58 @@
       <div
         v-for="item in cart"
         :key="item.id"
-        class="flex items-center justify-between border-b py-4"
+        class="grid grid-cols-1 md:grid-cols-[1fr_1fr_80px_80px] 
+        items-center gap-6 border-b pt-6 pb-10 min-h-[140px]"
       >
-        <div class="flex items-center gap-4">
+        <div class="flex justify-center mb-6">
           <img
             :src="item.image"
-            class="w-20 h-20 object-contain"
+            class="w-28 h-28 object-contain bg-gray-50 rounded"
           />
-          <div>
-            <h3 class="font-semibold">{{ item.title }}</h3>
-            <p class="text-sm text-gray-500">
-              ₹ {{ item.price }}
-            </p>
-          </div>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold">
+            {{ item.title }}
+          </h3>
+          <p class="text-sm text-gray-500">
+            ₹ {{ item.price }}
+          </p>
         </div>
 
-        <input
-          type="number"
-          min="1"
+        <select
           :value="item.qty"
-          @input="updateQty(item.id, $event.target.value)"
-          class="w-16 border rounded px-2 py-1"
-        />
+          @change="updateQty(item.id, $event.target.value)"
+          class="w-14 min-w-[56px] max-w-[56px] 
+          border rounded px-1 py-2 text-center bg-white"
+        >
+          <option v-for="n in 10" :key="n" :value="n">
+            {{ n }}
+          </option>
+        </select>
 
         <button
           @click="remove(item.id)"
-          class="text-red-500 hover:underline"
+          class="text-red-500 hover:underline mb-6 w-fit justify-self-end"
         >
           Remove
         </button>
       </div>
 
-      <div class="flex justify-between mt-6 text-xl font-bold">
-        <span>Total</span>
-        <span>₹ {{ totalPrice }}</span>
+      <div class="flex justify-between items-center mt-10">
+        <div class="text-2xl font-bold">
+          Total: ₹ {{ totalPrice }}
+        </div>
+
+        <router-link
+          to="/checkout"
+          class="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700"
+        >
+          Checkout
+        </router-link>
       </div>
     </div>
   </div>
-
-  <router-link
-  to="/checkout"
-  class="mt-6 inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700"
->
-  Checkout
-</router-link>
 </template>
 
 <script>
