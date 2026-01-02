@@ -17,6 +17,16 @@
           {{ product.description }}
         </p>
 
+        <!-- Rating Stars -->
+        <div class="flex items-center mb-2">
+          <span v-for="star in 5" :key="star" class="text-yellow-400">
+            {{ star <= product.rating ? "★" : "☆" }}
+          </span>
+          <span class="text-gray-500 text-sm ml-2">
+            ({{ product.rating }})
+          </span>
+        </div>
+
         <p class="text-xl font-semibold text-green-600 mb-8">
           ₹ {{ product.price }}
         </p>

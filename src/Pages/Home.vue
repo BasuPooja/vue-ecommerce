@@ -34,7 +34,17 @@
           <option value="low">Low → High</option>
           <option value="high">High → Low</option>
         </select>
+
+        <!-- Rating Dropdown -->
+        <select v-model="minRating" class="border px-4 py-2 rounded">
+          <option value="all">All Ratings</option>
+          <option :value="4">4★ & above</option>
+          <option :value="3">3★ & above</option>
+          <option :value="2">2★ & above</option>
+        </select>
         </div>
+
+        
 
         <!-- Loading Skeleton -->
         <div
@@ -101,6 +111,7 @@ export default {
       categories: ["All", "computer", "solar"],
       activeCategory: "All",
       sortOrder: "",
+      minRating: "all", 
       loading: true,
       currentPage: 1,
       perPage: 4
@@ -136,6 +147,11 @@ export default {
           p.title.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
       }
+
+      // Rating filter
+      if (this.minRating !== "all") {
+        result = result.filter(p => p.rating >= this.minRating);
+      }
       
       //  Sort by price
       if (this.sortOrder === "low") {
@@ -159,6 +175,13 @@ export default {
     searchQuery() {
       this.currentPage = 1;
     }
+  },
+
+  watch: {
+    activeCategory() { this.currentPage = 1; },
+    sortOrder() { this.currentPage = 1; },
+    minRating() { this.currentPage = 1; },
+    searchQuery() { this.currentPage = 1; }
   },
   mounted() {
     setTimeout(() => {
