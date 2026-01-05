@@ -45,14 +45,14 @@ export const products = [
     description: "Full HD monitor with vibrant colors."
   },
 
-  // 🔆 SOLAR PRODUCTS
+  // SOLAR PRODUCTS
   {
     id: 6,
     title: "Solar Panel 540W",
     category: "solar",
     price: 18000,
     rating: 4.5,
-    image: "https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=400&h=400&fit=crop",
+    image: "",
     description: "High efficiency solar panel for home usage."
   },
   {
@@ -92,7 +92,7 @@ export const products = [
     description: "Protects batteries from overcharging."
   },
 
-  // 🔌 GADGETS
+  //  GADGETS
   {
     id: 11,
     title: "Smart Watch",
