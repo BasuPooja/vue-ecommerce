@@ -22,6 +22,16 @@
     <p class="text-xs text-gray-500 mb-3 line-clamp-2">
       {{ product.description }}
     </p>
+    <!-- Rating Stars -->
+    <div class="flex items-center mb-2">
+      <span v-for="star in 5" :key="star" class="text-yellow-400">
+        {{ star <= product.rating ? "★" : "☆" }}
+      </span>
+      <span class="text-gray-500 text-sm ml-2">
+        ({{ product.rating }})
+      </span>
+    </div>
+
 
     <!-- Price -->
     <div class=" mt-auto flex justify-between items-center">

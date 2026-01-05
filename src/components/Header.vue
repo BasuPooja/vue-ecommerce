@@ -54,7 +54,8 @@
 export default {
   data() {
     return {
-      searchItem: ""
+      searchItem: "",
+      debounceTimer: null
     };
   },
 
@@ -66,7 +67,10 @@ export default {
 
   methods: {
     onSearch(e) {
-      this.$store.commit("setSearchQuery", e.target.value);
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer = setTimeout(() => {
+        this.$store.commit("setSearchQuery", this.searchItem);
+      },500);
     }
   }
 };
