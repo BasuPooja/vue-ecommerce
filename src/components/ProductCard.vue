@@ -39,11 +39,15 @@
         ₹ {{ product.price }}
       </span>
 
-      <button
-        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm"
-       @click="addCart">
-        Add to Cart
-      </button>
+      <button 
+          @click="addCart"
+          :disabled="product.stock === 0"
+          class="px-4 py-2 rounded-lg text-sm transition
+                bg-blue-600 text-white hover:bg-blue-700
+                disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {{ product.stock === 0 ? "Out of Stock" : "Add to Cart" }}
+        </button>
     </div>
 
     <router-link

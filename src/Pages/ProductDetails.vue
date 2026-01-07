@@ -1,13 +1,21 @@
 <template>
-  <div class="max-w-5xl mx-auto px-10 py-12">
+  <div v-if="product" class="max-w-5xl mx-auto px-10 py-12">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       <div class="relative w-full h-80 bg-gray-50 rounded-lg overflow-hidden">
         <img
-                :src="product.image"
-                class="inset-0 w-full h-full object-cover"
-              />
+          :src="product.image"
+          class="inset-0 w-full h-full object-cover"
+        />
+
+        <span
+          v-if="product.stock === 0"
+          class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded z-10"
+        >
+          Out of Stock
+        </span>
       </div>
 
+      <!-- DETAILS -->
       <div>
         <h1 class="text-2xl font-semibold mb-3">
           {{ product.title }}
@@ -32,17 +40,17 @@
         </p>
 
         <button 
-        @click="addToCart"
-        class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-          Add to Cart
+          @click="addToCart"
+          :disabled="product.stock === 0"
+          class="px-4 py-2 rounded-lg text-sm transition
+                bg-blue-600 text-white hover:bg-blue-700
+                disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {{ product.stock === 0 ? "Out of Stock" : "Add to Cart" }}
         </button>
       </div>
     </div>
     <!-- TABS -->
-    <p v-if="loading[activeTab]" class="text-gray-500">
-      Loading {{ activeTab }}...
-    </p>
-
     <div class="border-b flex space-x-6 mb-6">
     <button
       v-for="tab in tabs"
@@ -55,6 +63,11 @@
     {{ tab }}  
     </button>
     </div>
+
+    <p v-if="loading[activeTab]" class="text-gray-500">
+      Loading {{ activeTab }}...
+    </p>
+
     <!-- Description -->
     <div v-if="activeTab === 'Description' && !loading.Description">
       <p class="text-gray-600"> {{ description }}</p>
@@ -131,6 +144,7 @@ export default {
 
   methods: {
     addToCart() {
+      if (this.product.stock === 0) return;
       this.$store.commit("addItem", this.product);
     },
     switchTab(tab){
