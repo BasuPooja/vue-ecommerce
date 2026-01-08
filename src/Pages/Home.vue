@@ -2,7 +2,6 @@
   <div>
     <!-- HERO BANNER -->
     <HeroBanner />
-
     <div class="max-w-[1400px] mx-auto">
       <main class="px-10 py-12">
         <h1 class="text-3xl font-bold mb-8">Featured Products</h1>
@@ -50,8 +49,6 @@
           Reset Filters
         </button>
         </div>
-
-        
 
         <!-- Loading Skeleton -->
         <div

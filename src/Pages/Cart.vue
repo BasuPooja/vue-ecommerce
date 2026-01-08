@@ -18,24 +18,47 @@
             :src="item.image"
             class="w-28 h-28 object-contain bg-gray-50 rounded"
           />
+
+          <span
+            v-if="item.stock === 0"
+            class="absolute top-1 left-1 bg-red-600 text-white text-xs px-2 py-1 rounded"
+          >
+            Out of Stock
+          </span>
         </div>
         
         <div>
           <h3 class="font-semibold">
             {{ item.title }}
           </h3>
-          <p class="text-sm text-gray-500">
+          <p
+            v-if="item.stock === 0"
+            class="text-red-500 text-sm font-semibold"
+          >
+            Out of Stock
+          </p>
+
+          <p v-if="item.stock > 0" class="text-sm text-gray-500">
             ₹ {{ item.price }}
+          </p>
+          <p v-else class="text-sm text-red-500 font-semibold">
+            Currently unavailable
           </p>
         </div>
 
         <select
           :value="item.qty"
+          :disabled="item.stock === 0"
           @change="updateQty(item.id, $event.target.value)"
-          class="w-14 min-w-[56px] max-w-[56px] 
-          border rounded px-1 py-2 text-center bg-white"
+          class = "w-14 min-w-[56px] max-w-[56px] 
+                  border rounded px-1 py-2 text-center bg-white
+                  disabled:bg-gray-200 disabled:cursor-not-allowed"
         >
-          <option v-for="n in 10" :key="n" :value="n">
+          <option 
+            v-for="n in Math.max(item.stock, 1)" 
+            :key="n" 
+            :value="n"
+          >
             {{ n }}
           </option>
         </select>
@@ -65,10 +88,18 @@
 </template>
 
 <script>
+import { products } from "@/services/products";
 export default {
   computed: {
     cart() {
-      return this.$store.state.cart;
+      return this.$store.state.cart.map(item => {
+        const product = products.find(p => p.id === item.id);
+
+        return {
+          ...item,
+          stock: product ? product.stock : 0
+        };
+      });
     },
 
     totalPrice() {

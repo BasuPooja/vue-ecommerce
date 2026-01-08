@@ -3,8 +3,10 @@ import { createStore } from "vuex";
 
 export default createStore({
     state(){
+        const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+        
         return{
-            cart:[],
+            cart: savedCart,
             searchQuery: "",
             checkout: {
                 name: "",
@@ -23,28 +25,37 @@ export default createStore({
                 item => item.id === product.id
             );
             if (existing){
-                existing.qty += 1;
+                if (existing.qty < product.stock) {
+                    existing.qty += 1;
+                }
             }else{
-                state.cart.push({
-                    ...product,
-                    qty:1
-                });
+                if (product.stock > 0) {
+                    state.cart.push({
+                        ...product,
+                        qty:1
+                    });
+                }
             }
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
 
         removeItem(state,id){
-            state.cart = state.cart.filter(
-                item => item.id !== id
-            );
+            state.cart = state.cart.filter(item => item.id !== id);
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
 
         updateQuantity(state, {id, qty}){
             const item = state.cart.find(
             item => item.id === id  
             );
-            if(item && qty > 0){
+            if (!item) return;
+
+            if (item.stock === 0) {
+                item.qty = 0;
+            } else if (qty > 0 && qty <= item.stock) {
                 item.qty = qty;
             }
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },   
         
         setSearchQuery(state,query){
@@ -56,34 +67,39 @@ export default createStore({
         
         placeOrder(state,payload){
             state.checkout = payload.checkout;
-            state.orderItems = [...state.cart];
-            state.orderTotal = state.cart.reduce(
+
+            state.orderItems = state.cart.filter(item=> item.stock>0);
+
+            state.orderTotal = state.orderItems.reduce(
                 (sum, item) => sum + item.price * item.qty,
                 0
             );
             state.orderId = "ORD-" + Date.now();
             state.cart = [];
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
         
         clearCart(state) {
             state.cart = [];
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         }
         
     },
 
     getters:{
         totalPrice(state){
-            return state.cart.reduce(
-                (total,item) => total + item.price * item.qty,
-                0
-            );
+            return state.cart.reduce((total,item) => {
+                if (item.stock === 0) 
+                    return total;
+                return total + item.price * item.qty;
+             }, 0);
         },
 
         cartCount(state){
-            return state.cart.reduce(
-                (count,item) => count + item.qty,
-                0
-            );
+            return state.cart.reduce((count, item) => {
+                if (item.stock === 0) return count;
+                    return count + item.qty;
+                }, 0);
         },
         searchQuery(state) {
             return state.searchQuery;
