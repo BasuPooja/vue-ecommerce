@@ -146,7 +146,7 @@ export default {
     },
 
     finalTotal(){
-      return this.$store.state.findTotal;
+      return this.$store.getters.findTotal;
     },
     coupon() {
       return this.$store.state.coupon;

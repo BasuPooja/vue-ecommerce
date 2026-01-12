@@ -19,7 +19,9 @@ export default createStore({
             orderTotal: 0,
             coupon: null,
             discount: 0,
-            couponError: ""
+            couponError: "",
+            payableAmount: 0,
+            finalPaidAmount: 0
         };
     },
     mutations:{
@@ -53,7 +55,6 @@ export default createStore({
             state.coupon = null;
             state.discount = 0;
             state.couponError = "";
-l
             localStorage.setItem("cart", JSON.stringify(state.cart));
         },
 
@@ -85,18 +86,18 @@ l
         placeOrder(state,payload){
             state.checkout = payload.checkout;
 
-            state.orderItems = state.cart.filter(item=> item.stock>0);
+            state.orderItems = state.cart.filter(item=> item.qty>0);
 
             state.orderTotal = state.orderItems.reduce(
                 (sum, item) => sum + item.price * item.qty,
                 0
             );
             state.orderId = "ORD-" + Date.now();
-            state.cart = [];
-
-            state.coupon = null;
-            state.discount = 0;
-            state.couponError = "";
+            
+            // state.coupon = null;
+            // state.discount = 0;
+            // state.couponError = "";
+            // state.cart = [];
 
             localStorage.setItem("cart", JSON.stringify(state.cart));
         },
@@ -147,17 +148,27 @@ l
             state.coupon = coupon;
             state.discount = discount;
             state.couponError = "";
-            },
-            removeCoupon(state) {
-                state.coupon = null;
-                state.discount = 0;
-                state.couponError = "";
-            },
+        },
+        removeCoupon(state) {
+            state.coupon = null;
+            state.discount = 0;
+            state.couponError = "";
+        },
+
+        setPayableAmount(state) {
+            state.payableAmount = Math.max(
+                state.orderTotal - state.discount,
+                0
+            );
+        },
+        confirmPayment(state) {
+            state.finalPaidAmount = state.payableAmount; 
+        },
         
         clearCart(state) {
             state.cart = [];
-            state.coupon = coupon;
-            state.discount = discount;
+            state.coupon = null;
+            state.discount = 0;
             state.couponError = "";
             localStorage.setItem("cart", JSON.stringify(state.cart));
         }
@@ -172,6 +183,9 @@ l
         },
         findTotal(state, getters) {
             return Math.max(getters.totalPrice - state.discount, 0);
+        },
+        payableAmount(state) {
+            return state.payableAmount;
         },
         cartCount(state){
             return state.cart.reduce((count, item) => {

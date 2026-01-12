@@ -24,7 +24,7 @@
       <hr class="my-4" />
 
       <h3 class="text-lg font-bold">
-        Total: ₹{{ totalPrice }}
+        Total: ₹{{ finalPaidAmount }}
       </h3>
     </div>
   </div>
@@ -42,8 +42,8 @@ export default {
     orderId() {
         return this.$store.state.orderId;
     },
-    totalPrice() {
-      return this.$store.state.orderTotal;
+    finalPaidAmount() {
+      return this.$store.state.finalPaidAmount;
     }
   }
 };
