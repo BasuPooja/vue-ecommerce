@@ -23,9 +23,37 @@
 
       <hr class="my-4" />
 
-      <h3 class="text-lg font-bold">
-        Total: ₹{{ finalPaidAmount }}
-      </h3>
+      <div class="space-y-2 text-sm">
+      <div class="flex justify-between">
+        <span>Subtotal</span>
+        <span>₹{{ subtotal }}</span>
+      </div>
+
+      <div v-if="discount > 0" class="flex justify-between text-green-600">
+        <span>Discount</span>
+        <span>- ₹{{ discount }}</span>
+      </div>
+
+      <div class="flex justify-between">
+        <span>Tax (18%)</span>
+        <span>₹{{ tax }}</span>
+      </div>
+
+      <div class="flex justify-between">
+        <span>Shipping</span>
+        <span>
+          <span v-if="shipping === 0" class="text-green-600">Free</span>
+          <span v-else>₹{{ shipping }}</span>
+        </span>
+      </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <h3 class="text-xl font-bold text-right">
+      Final Paid Amount: ₹{{ finalPaidAmount }}
+    </h3>
+
     </div>
   </div>
 </template>
@@ -42,8 +70,28 @@ export default {
     orderId() {
         return this.$store.state.orderId;
     },
+    orderSummary() {
+      return this.$store.getters.orderSummary;
+    },
+
+    subtotal() {
+      return this.orderSummary.subtotal;
+    },
+
+    discount() {
+      return this.orderSummary.discount;
+    },
+
+    tax() {
+      return this.orderSummary.tax;
+    },
+
+    shipping() {
+      return this.orderSummary.shipping;
+    },
+
     finalPaidAmount() {
-      return this.$store.state.finalPaidAmount;
+      return this.orderSummary.finalTotal;
     }
   }
 };

@@ -21,7 +21,16 @@ export default createStore({
             discount: 0,
             couponError: "",
             payableAmount: 0,
-            finalPaidAmount: 0
+            finalPaidAmount: 0,
+            taxRate: 0.18,
+            shippingFee: 50,
+            orderSummary: {
+                subtotal: 0,
+                discount: 0,
+                tax: 0,
+                shipping: 0,
+                finalTotal: 0
+            },
         };
     },
     mutations:{
@@ -161,10 +170,31 @@ export default createStore({
                 0
             );
         },
-        confirmPayment(state) {
-            state.finalPaidAmount = state.payableAmount; 
+       confirmPayment(state) {
+            const subtotal = state.cart.reduce(
+                (sum, item) => sum + item.price * item.qty,
+                0
+            );
+
+            const discount = state.discount;
+            const tax = Math.round((subtotal - discount) * state.taxRate);
+            const shipping = subtotal >= 1000 ? 0 : state.shippingFee;
+
+            const finalTotal = Math.max(
+                subtotal - discount + tax + shipping,
+                0
+            );
+
+            state.finalPaidAmount = finalTotal;
+
+            state.orderSummary = {
+                subtotal,
+                discount,
+                tax,
+                shipping,
+                finalTotal
+            };
         },
-        
         clearCart(state) {
             state.cart = [];
             state.coupon = null;
@@ -181,12 +211,41 @@ export default createStore({
                 0
             );
         },
-        findTotal(state, getters) {
-            return Math.max(getters.totalPrice - state.discount, 0);
+
+        subtotal(state) {
+            return state.cart.reduce(
+                (sum, item) => sum + item.price * item.qty,
+                0
+            );
         },
-        payableAmount(state) {
-            return state.payableAmount;
+
+        discountAmount(state) {
+            return state.discount;
         },
+
+        tax(state, getters) {
+            const taxableAmount = getters.subtotal - getters.discountAmount;
+            return Math.round(taxableAmount * state.taxRate);
+        },
+
+        shipping(state, getters) {
+            return getters.subtotal >= 1000 ? 0 : state.shippingFee;
+        },
+
+        finalTotal(state, getters) {
+            return Math.max(
+                getters.subtotal -
+                getters.discountAmount +
+                getters.tax +
+                getters.shipping,
+                0
+            );
+        },
+
+        finalPaidAmount(state) {
+            return state.finalPaidAmount;
+        },
+
         cartCount(state){
             return state.cart.reduce((count, item) => {
                 if (item.stock === 0) return count;
@@ -206,6 +265,9 @@ export default createStore({
         },
         orderId(state) {
             return state.orderId;
+        },
+        orderSummary(state) {
+            return state.orderSummary;
         }
     }
 });

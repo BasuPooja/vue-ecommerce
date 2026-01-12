@@ -97,18 +97,31 @@
       </div>
 
       <!-- TOTALS -->
-      <div class="flex justify-between items-center mt-10">
-        <div>
-          <p class="text-lg">Total: ₹ {{ totalPrice }}</p>
+      <div class="mt-10 max-w-sm border-t pt-6">
+      <div class="flex justify-between mb-2">
+        <span>Subtotal:</span>
+        <span>₹ {{ subtotal }}</span>
+      </div>
 
-          <p v-if="coupon" class="text-green-600">
-            Discount: -₹ {{ discount }}
-          </p>
+      <div v-if="coupon" class="flex justify-between mb-2 text-green-600">
+        <span>Discount:</span>
+        <span>- ₹ {{ discount }}</span>
+      </div>
 
-          <p class="text-2xl font-bold">
-            Payable: ₹ {{ finalTotal }}
-          </p>
-        </div>
+      <div class="flex justify-between mb-2">
+        <span>Tax ({{ (taxRate*100).toFixed(0) }}%):</span>
+        <span>₹ {{ tax }}</span>
+      </div>
+
+      <div class="flex justify-between mb-2">
+        <span>Shipping:</span>
+        <span>₹ {{ shipping }}</span>
+      </div>
+
+      <div class="flex justify-between mt-4 text-2xl font-bold">
+        <span>Payable:</span>
+        <span>₹ {{ finalTotal }}</span>
+      </div>
 
         <router-link
           to="/checkout"
@@ -141,18 +154,30 @@ export default {
       });
     },
 
-    totalPrice() {
-      return this.$store.getters.totalPrice;
+    subtotal() {
+      return this.$store.getters.subtotal;
+    },
+
+    tax() {
+      return this.$store.getters.tax;
+    },
+
+    shipping() {
+      return this.$store.getters.shipping;
+    },
+
+    taxRate() {
+      return this.$store.state.taxRate;
     },
 
     finalTotal(){
-      return this.$store.getters.findTotal;
+      return this.$store.getters.finalTotal;
     },
     coupon() {
       return this.$store.state.coupon;
     },
     discount() {
-      return this.$store.state.discount;
+      return this.$store.getters.discountAmount;
     },
     couponError() {
       return this.$store.state.couponError;

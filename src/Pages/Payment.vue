@@ -21,16 +21,14 @@ export default {
       return this.$store.state.orderId;
     },
     finalTotal(){
-      return this.$store.getters.payableAmount;
+      return this.$store.getters.finalTotal;
     }
   },
-  mounted() {
-    console.log("Final Payable:", this.finalTotal);
-  },
+
   methods: {
     confirmPayment() {
       alert("Payment Successful (Mock)");
-      this.$store.commit("confirmPayment");
+      this.$store.commit("confirmPayment", this.$store.getters.finalTotal);
       this.$store.commit("clearCart");
       this.$router.push("/orderSummary");
     }
