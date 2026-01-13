@@ -1,6 +1,10 @@
 
 import { createStore } from "vuex";
+<<<<<<< HEAD
 import { coupons } from "@/services/coupons";
+=======
+import auth from "./modules/auth";
+>>>>>>> 3668239 (Initial commit for JWT Authentication)
 
 export default createStore({
     state(){
@@ -203,7 +207,6 @@ export default createStore({
             localStorage.setItem("cart", JSON.stringify(state.cart));
         }
     },
-
     getters:{
         totalPrice(state){
              return state.cart.reduce(
@@ -269,5 +272,8 @@ export default createStore({
         orderSummary(state) {
             return state.orderSummary;
         }
+    },
+    modules: {
+        auth
     }
 });
