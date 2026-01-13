@@ -1,5 +1,6 @@
 
 import { createStore } from "vuex";
+import auth from "./modules/auth";
 
 export default createStore({
     state(){
@@ -85,7 +86,6 @@ export default createStore({
         }
         
     },
-
     getters:{
         totalPrice(state){
             return state.cart.reduce((total,item) => {
@@ -115,6 +115,8 @@ export default createStore({
         orderId(state) {
             return state.orderId;
         }
+    },
+    modules: {
+        auth
     }
-
 });
