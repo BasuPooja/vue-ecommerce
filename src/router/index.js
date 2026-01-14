@@ -1,6 +1,7 @@
 // import { createRouter, createWebHistory } from "vue-router";
 import { createWebHistory, createRouter } from "vue-router";
 
+import store from "@/store/cart";
 import Home from "@/pages/Home.vue"
 import login from "@/pages/Login.vue"
 import ProductDetails from "../pages/ProductDetails.vue";
@@ -31,22 +32,38 @@ const routes = [
     {
         path: "/checkout",
         name: Checkout,
-        component: Checkout
+        component: Checkout,
+        meta: { requiresAuth: true }
     },
     {
         path: "/orderSummary",
         name: "OrderSummary",
-        component: orderSummary
+        component: orderSummary,
+        meta: { requiresAuth: true }
     },
     {
         path: "/payment",
         name: "payment",
-        component: payment
+        component: payment,
+        meta: { requiresAuth: true }
     }
 
 ];
 
-export default createRouter({
+
+const router = createRouter({
     history: createWebHistory(),
     routes
 });
+
+router.beforeEach((to, from, next) => {
+    if(
+        to.meta.requiresAuth && !store.getters["auth/isAuthenticated"]
+    ) {
+        next("/login");
+    } else {
+        next();
+    }
+});
+
+export default router;

@@ -29,8 +29,8 @@
 
       <p class="text-xs text-gray-500 mt-4 text-center">
         Demo login:<br />
-        <b>username:</b> kminchelle<br />
-        <b>password:</b> 0lelplR
+        <b>username:</b> Pooja<br />
+        <b>password:</b> Pooja
       </p>
     </div>
   </div>
