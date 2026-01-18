@@ -17,8 +17,9 @@ const routes = [
     },
     {
         path: "/login",
+        name: "Login",
         component: login,
-        meta: { authLayout: true }
+        meta: { guestOnly: true },
     },
     { 
         path: "/product/:id", 
@@ -28,6 +29,7 @@ const routes = [
         path: "/cart", 
         name:"Cart",
         component: Cart,
+        meta: { requiresAuth: true },
     },
     {
         path: "/checkout",
@@ -57,10 +59,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if(
-        to.meta.requiresAuth && !store.getters["auth/isAuthenticated"]
-    ) {
+    const isAuth = store.getters["auth/isAuthenticated"];
+    const user = store.state.auth.user;
+    if(to.meta.requiresAuth && !isAuth) {
         next("/login");
+    } else if (to.meta.role && user?.role !== to.meta.role) {
+        next("/");
     } else {
         next();
     }

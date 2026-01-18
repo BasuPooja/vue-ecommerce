@@ -5,9 +5,8 @@ export default {
 
   state() {
     return {
-      accessToken: localStorage.getItem("accessToken"),
-      user: JSON.parse(localStorage.getItem("user")),
-    };
+      accessToken: localStorage.getItem("accessToken") || null,
+      user: JSON.parse(localStorage.getItem("user")) || null,    };
   },
 
   mutations: {
@@ -22,39 +21,53 @@ export default {
     LOGOUT(state) {
       state.accessToken = null;
       state.user = null;
+
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
     },
   },
 
   actions: {
     async login({ commit }, credentials) {
-      const username = "Pooja";
-      const password = "Pooja";
-      if(
-        credentials.username.trim() === username &&
-        credentials.password.trim() === password
-      ) {
+      const users = [
+      { username: "Pooja", password: "Pooja", role: "admin" },
+      { username: "User", password: "User", role: "user" },
+    ];
+    const foundUser = users.find(
+      (u) =>
+        credentials.username.trim() === u.username &&
+        credentials.password.trim() === u.password
+      ) 
+
+      if (!foundUser) {
+        throw new Error("Invalid credentials");
+      }
 
       commit("SET_AUTH", {
         accessToken: "local-demo-token",
-        user: { username },
+        user: {
+          username: foundUser.username,
+          role: foundUser.role,
+          // avatar: "https://i.pravatar.cc/150?img=3"
+        },
       });
       
       return true;
-      } else {
-        throw new Error("Invalid username or password");
-      }
-
     },
 
     logout({ commit }) {
       commit("LOGOUT");
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
     },
   },
   getters: {
     isAuthenticated(state) {
       return !!state.accessToken;
+    },
+    currentUser(state) {
+      return state.user;
+    },
+    username(state) {
+      return state.user?.username || "";
     }
   }
 };
