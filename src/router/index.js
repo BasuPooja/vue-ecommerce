@@ -3,7 +3,6 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import store from "@/store/cart";
 import Home from "@/pages/Home.vue"
-import login from "@/pages/Login.vue"
 import ProductDetails from "../pages/ProductDetails.vue";
 import Cart from "@/pages/Cart.vue";
 import Checkout from "@/pages/Checkout.vue";
@@ -15,12 +14,7 @@ const routes = [
         name: "Home",
         component:Home 
     },
-    {
-        path: "/login",
-        name: "Login",
-        component: login,
-        meta: { guestOnly: true }
-    },
+   
     { 
         path: "/product/:id", 
         component: ProductDetails 
@@ -33,8 +27,8 @@ const routes = [
     },
     {
         path: "/checkout",
-        name: Checkout,
-        component: "Checkout",
+        name: "Checkout",
+        component: Checkout,
         meta: { requiresAuth: true }
     },
     {

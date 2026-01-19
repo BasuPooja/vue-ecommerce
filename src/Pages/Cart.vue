@@ -123,12 +123,12 @@
         <span>₹ {{ finalTotal }}</span>
       </div>
 
-        <router-link
-          to="/checkout"
+        <button
+          @click="goToCheckout"
           class="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700"
         >
           Checkout
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -197,6 +197,16 @@ export default {
     },
     applyCoupon() {
       this.$store.commit("applyCoupon", this.couponCode);
+    },
+    goToCheckout() {
+      const isAuth = this.$store.getters["auth/isAuthenticated"];
+
+      if (!isAuth) {
+        // 🔥 open login modal via event bus or store
+        this.$store.commit("ui/OPEN_LOGIN_MODAL");
+      } else {
+        this.$router.push("/checkout");
+      }
     }
   }
 };
