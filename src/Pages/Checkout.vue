@@ -91,6 +91,7 @@
                 alert("Order placed sucessfully!!");
                 
                 // GO TO ORDER SUMMARY PAGE
+                this.$store.commit("setPayableAmount");
                 this.$router.push("/payment");
             }
         }
