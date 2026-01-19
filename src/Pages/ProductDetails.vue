@@ -144,7 +144,15 @@ export default {
 
   methods: {
     addToCart() {
+      
       if (this.product.stock === 0) return;
+      const isLoggedIn = this.$store.getters["auth/isAuthenticated"];
+
+      if (!isLoggedIn) {
+        this.$router.push("/login");
+        return;
+      }
+
       this.$store.commit("addItem", this.product);
     },
     switchTab(tab){

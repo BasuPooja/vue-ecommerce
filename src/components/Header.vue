@@ -130,15 +130,12 @@ export default {
       return this.$store.getters["auth/username"];
     },
     avatarUrl() {
-      return this.$store.state.auth.user?.avatar || "";
+      return this.$store.getters["auth/currentUser"]?.avatar || "";
     },
     initials() {
-      if (!this.username) return "";
       return this.username
-        .split(" ")
-        .map(n => n[0])
-        .join("")
-        .toUpperCase();
+      ? this.username.charAt(0).toUpperCase()
+      : "";
     }
   },
 
