@@ -35,13 +35,15 @@
       <div class="relative cursor-pointer flex items-center gap-4">
       
         <!-- Login -->
-        <router-link
+         <button
           v-if="!isLoggedIn"
-          to="/login"
+          @click="openLoginModal"
           class="text-sm font-semibold text-pink-600 hover:underline"
         >
           Login
-        </router-link>
+        </button>
+
+
 
         <div v-else class="relative" ref="profileMenu">
           <!-- Profile Icon -->
@@ -81,12 +83,12 @@
             >
               Profile
             </router-link>
-          <button
-            @click="logout"
-            class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
-          >
-            Logout
-          </button>
+            <button
+              @click="logout"
+              class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+            >
+              Logout
+            </button>
         </div>
       </div>
 
@@ -106,16 +108,39 @@
         </div>
       </div>
     </div>
+    <!-- LOGIN MODAL -->
+    <LoginModal
+      v-if="showLoginModal"
+      @close="showLoginModal = false"
+      @success="onLoginSuccess"
+      @switchToSignup="openSignup"
+      />
+
+    <!-- SIGNUP MODAL -->
+    <SignupModal
+      v-if="showSignupModal"
+      @close="showSignupModal = false"
+      @switchToLogin="openLogin"
+    />
+
   </header>
 </template>
 
 <script>
+
+import LoginModal from "@/components/LoginModal.vue";
+import SignupModal from "@/components/SignupModal.vue";
+
 export default {
+  components: { LoginModal, SignupModal },
+
   data() {
     return {
       searchItem: "",
       debounceTimer: null,
-      showDropdown: false
+      showDropdown: false,
+      showLoginModal: false,
+      showSignupModal: false
     };
   },
   computed: {
@@ -140,11 +165,11 @@ export default {
   },
 
   mounted() {
-    document.addEventListener("click", this.handleClickOutside, true);
+    document.addEventListener("click", this.handleClickOutside);
   },
 
   beforeUnmount() {
-    document.removeEventListener("click", this.handleClickOutside, true);
+    document.removeEventListener("click", this.handleClickOutside);
   },
 
   watch: {
@@ -160,9 +185,29 @@ export default {
         this.$store.commit("setSearchQuery", this.searchItem);
       },500);
     }, 
+
+    openLoginModal() {
+      this.showLoginModal = true;
+    },
+
+    openSignup() {
+      this.showLoginModal = false;
+      this.showSignupModal = true;
+    },
+
+    openLogin() {
+      this.showSignupModal = false;
+      this.showLoginModal = true;
+    },
+
+    onLoginSuccess() {
+      this.showLoginModal = false;
+      this.showSignupModal = false;
+    },
+
     goToCart() {
       if (!this.isLoggedIn) {
-        this.$router.push("/login");
+        this.showLoginModal = true;
       } else {
         this.$router.push("/cart");
       }
@@ -183,7 +228,7 @@ export default {
     logout() {
       this.showDropdown = false;
       this.$store.dispatch("auth/logout");
-      this.$router.push("/login");
+      this.showLoginModal = true;
     }
   }
 };
