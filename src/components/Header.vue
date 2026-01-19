@@ -111,7 +111,7 @@
     <!-- LOGIN MODAL -->
     <LoginModal
       v-if="showLoginModal"
-      @close="$store.commit('CLOSE_LOGIN_MODAL')"
+      @close="$store.commit('ui/CLOSE_LOGIN_MODAL')"
       @success="onLoginSuccess"
       @switchToSignup="openSignup"
       />
@@ -143,6 +143,7 @@ export default {
   },
   computed: {
     cartCount() {
+      if (!this.isLoggedIn) return 0;
       return this.$store.getters.cartCount;
     },
     isLoggedIn() {
@@ -189,23 +190,23 @@ export default {
     }, 
 
     openLoginModal() {
-      this.$store.commit("OPEN_LOGIN_MODAL");
+      this.$store.commit("ui/OPEN_LOGIN_MODAL");
     },
 
     openSignup() {
-      this.$store.commit("CLOSE_LOGIN_MODAL");
+      this.$store.commit("ui/CLOSE_LOGIN_MODAL");
       this.showSignupModal = true;
     },
 
     openLogin() {
       this.showSignupModal = false;
-      this.$store.commit("OPEN_LOGIN_MODAL");
+      this.$store.commit("ui/OPEN_LOGIN_MODAL");
     },
 
     onLoginSuccess() {
-      const { pendingAction, pendingProduct } = this.$store.state.ui;
+      const { pendingAction, pendingProduct } = this.$store.state.ui || {};
 
-      this.$store.commit("CLOSE_LOGIN_MODAL");
+      this.$store.commit("ui/CLOSE_LOGIN_MODAL");
 
       if (pendingAction === "add-to-cart" && pendingProduct) {
         this.$store.commit("addItem", pendingProduct);
@@ -215,13 +216,13 @@ export default {
         this.$router.push("/checkout");
       }
 
-      this.$store.commit("CLEAR_PENDING");
+      this.$store.commit("ui/CLEAR_PENDING");
     },
 
     goToCart() {
       if (!this.isLoggedIn) {
-        this.$store.commit("SET_PENDING_ACTION", "checkout");
-        this.$store.commit("OPEN_LOGIN_MODAL");
+        this.$store.commit("ui/SET_PENDING_ACTION", "checkout");
+        this.$store.commit("ui/OPEN_LOGIN_MODAL");
         return;
       }
       this.$router.push("/cart");
@@ -242,7 +243,7 @@ export default {
     logout() {
       this.showDropdown = false;
       this.$store.dispatch("auth/logout");
-      this.$store.commit("OPEN_LOGIN_MODAL");
+      this.$store.commit("ui/OPEN_LOGIN_MODAL");
     }
   }
 };

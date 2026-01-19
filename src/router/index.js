@@ -19,6 +19,7 @@ const routes = [
         path: "/product/:id", 
         component: ProductDetails 
     },
+    
     { 
         path: "/cart", 
         name:"Cart",

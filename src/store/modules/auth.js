@@ -70,7 +70,6 @@ export default {
         user: {
           username: foundUser.username,
           role: foundUser.role,
-          // avatar: "https://i.pravatar.cc/150?img=3"
         },
       });
       
@@ -108,6 +107,10 @@ export default {
     logout({ commit }) {
       commit("LOGOUT");
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      rootCommit("clearCart");
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
     },
   },
   getters: {

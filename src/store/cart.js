@@ -5,10 +5,13 @@ import { coupons } from "@/services/coupons";
 =======
 >>>>>>> 3668239 (Initial commit for JWT Authentication)
 import auth from "./modules/auth";
+import ui from "./modules/ui";
 
 export default createStore({
     state(){
-        const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+        const user = JSON.parse(localStorage.getItem("user"));
+        const username = user?.username || "guest";
+        const savedCart = JSON.parse(localStorage.getItem(`cart_${username}`)) || [];
         
         return{
             cart: savedCart,
@@ -18,11 +21,13 @@ export default createStore({
                 email: "",
                 address: ""
             },
-            
             orderItems: [],
             orderId: null ,
             orderTotal: 0,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
             coupon: null,
             discount: 0,
             couponError: "",
@@ -36,6 +41,7 @@ export default createStore({
                 tax: 0,
                 shipping: 0,
                 finalTotal: 0
+<<<<<<< HEAD
             },
 =======
 
@@ -46,23 +52,22 @@ export default createStore({
             }
 
 >>>>>>> 6b8cfcf (before checkout, addtocart check login)
+=======
+            }
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
         };
     },
     mutations:{
         addItem(state,product){
-            const existing = state.cart.find(
-                item => item.id === product.id
-            );
+            const userId = JSON.parse(localStorage.getItem("user"))?.username || "guest";
+            const existing = state.cart.find(item => item.id === product.id);
             if (existing){
                 if (existing.qty < product.stock) {
                     existing.qty += 1;
                 }
             }else{
                 if (product.stock > 0) {
-                    state.cart.push({
-                        ...product,
-                        qty:1
-                    });
+                    state.cart.push({...product, qty:1});
                 }
             }
 
@@ -70,7 +75,11 @@ export default createStore({
             state.discount = 0;
             state.couponError = "";
 
+<<<<<<< HEAD
             localStorage.setItem("cart", JSON.stringify(state.cart));
+=======
+            localStorage.setItem(`cart_${userId}`, JSON.stringify(state.cart));
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
         },
 
         removeItem(state,id){
@@ -79,7 +88,11 @@ export default createStore({
             state.coupon = null;
             state.discount = 0;
             state.couponError = "";
+<<<<<<< HEAD
             localStorage.setItem("cart", JSON.stringify(state.cart));
+=======
+            localStorage.setItem(`cart_${userId}`, JSON.stringify(state.cart));
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
         },
 
         updateQuantity(state, {id, qty}){
@@ -96,34 +109,26 @@ export default createStore({
             state.coupon = null;
             state.discount = 0;
             state.couponError = "";
+<<<<<<< HEAD
 
             localStorage.setItem("cart", JSON.stringify(state.cart));
         },   
+=======
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
 
-        OPEN_LOGIN_MODAL(state) {
-            state.ui.showLoginModal = true;
-        },
-        CLOSE_LOGIN_MODAL(state) {
-            state.ui.showLoginModal = false;
-        },
-        SET_PENDING_ACTION(state, action) {
-            state.ui.pendingAction = action;
-        },
-        SET_PENDING_PRODUCT(state, product) {
-            state.ui.pendingProduct = product;
-        },
-        CLEAR_PENDING(state) {
-            state.ui.pendingAction = null;
-            state.ui.pendingProduct = null;
-        },
+            localStorage.setItem(`cart_${userId}`, JSON.stringify(state.cart));
+        },   
         
         setSearchQuery(state,query){
             state.searchQuery = query;
         },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 6b8cfcf (before checkout, addtocart check login)
+=======
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
         setCheckoutData(state, payload) {
             state.checkout = payload;
         },
@@ -236,7 +241,12 @@ export default createStore({
             state.coupon = null;
             state.discount = 0;
             state.couponError = "";
+<<<<<<< HEAD
             localStorage.setItem("cart", JSON.stringify(state.cart));
+=======
+            const userId = JSON.parse(localStorage.getItem("user"))?.username || "guest";
+            localStorage.setItem(`cart_${userId}`, JSON.stringify(state.cart));
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
         }
     },
     getters:{
@@ -306,6 +316,7 @@ export default createStore({
         }
     },
     modules: {
+        ui,
         auth
     }
 });

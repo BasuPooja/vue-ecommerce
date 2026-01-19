@@ -79,6 +79,52 @@
           placeholder="Enter coupon code"
           class="border px-4 py-2 rounded w-full"
         />
+<<<<<<< HEAD
+=======
+
+        <button
+          @click="applyCoupon"
+          class="mt-3 bg-blue-600 text-white px-5 py-2 rounded w-full"
+        >
+          Apply Coupon
+        </button>
+
+        <p v-if="couponError" class="text-red-500 mt-2 text-sm">
+          {{ couponError }}
+        </p>
+
+        <p v-if="coupon" class="text-green-600 mt-2 text-sm">
+          Coupon applied: {{ coupon.code }}
+        </p>
+      </div>
+
+      <!-- TOTALS -->
+      <div class="mt-10 max-w-sm border-t pt-6">
+      <div class="flex justify-between mb-2">
+        <span>Subtotal:</span>
+        <span>₹ {{ subtotal }}</span>
+      </div>
+
+      <div v-if="coupon" class="flex justify-between mb-2 text-green-600">
+        <span>Discount:</span>
+        <span>- ₹ {{ discount }}</span>
+      </div>
+
+      <div class="flex justify-between mb-2">
+        <span>Tax ({{ (taxRate*100).toFixed(0) }}%):</span>
+        <span>₹ {{ tax }}</span>
+      </div>
+
+      <div class="flex justify-between mb-2">
+        <span>Shipping:</span>
+        <span>₹ {{ shipping }}</span>
+      </div>
+
+      <div class="flex justify-between mt-4 text-2xl font-bold">
+        <span>Payable:</span>
+        <span>₹ {{ finalTotal }}</span>
+      </div>
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
 
         <button
 <<<<<<< HEAD
@@ -199,18 +245,26 @@ export default {
       });
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     applyCoupon() {
       this.$store.commit("applyCoupon", this.couponCode);
     },
 =======
 >>>>>>> 78a113d (checkout working problem solved after adding login modal)
+=======
+    applyCoupon() {
+      this.$store.commit("applyCoupon", this.couponCode);
+    },
+>>>>>>> aa68310 (before add to cart checkout it will ccheck for login and after logout cart will clear and store item in cart user basis)
     goToCheckout() {
-      if (!this.$store.getters["auth/isAuthenticated"]) {
-        this.$store.commit("SET_PENDING_ACTION", "checkout");
-        this.$store.commit("OPEN_LOGIN_MODAL");
-        return;
+      const isAuth = this.$store.getters["auth/isAuthenticated"];
+
+      if (!isAuth) {
+        // open login modal via event bus or store
+        this.$store.commit("ui/OPEN_LOGIN_MODAL");
+      } else {
+        this.$router.push("/checkout");
       }
-      this.$router.push("/checkout");
     }
   }
 };
