@@ -1,10 +1,7 @@
 
 import { createStore } from "vuex";
-<<<<<<< HEAD
 import { coupons } from "@/services/coupons";
-=======
 import auth from "./modules/auth";
->>>>>>> 3668239 (Initial commit for JWT Authentication)
 
 export default createStore({
     state(){
