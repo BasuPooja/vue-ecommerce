@@ -18,9 +18,11 @@ export default createStore({
                 email: "",
                 address: ""
             },
+            
             orderItems: [],
             orderId: null ,
             orderTotal: 0,
+<<<<<<< HEAD
             coupon: null,
             discount: 0,
             couponError: "",
@@ -35,6 +37,15 @@ export default createStore({
                 shipping: 0,
                 finalTotal: 0
             },
+=======
+
+            ui: {
+                showLoginModal: false,
+                pendingAction: null, 
+                pendingProduct: null
+            }
+
+>>>>>>> 6b8cfcf (before checkout, addtocart check login)
         };
     },
     mutations:{
@@ -88,10 +99,31 @@ export default createStore({
 
             localStorage.setItem("cart", JSON.stringify(state.cart));
         },   
+
+        OPEN_LOGIN_MODAL(state) {
+            state.ui.showLoginModal = true;
+        },
+        CLOSE_LOGIN_MODAL(state) {
+            state.ui.showLoginModal = false;
+        },
+        SET_PENDING_ACTION(state, action) {
+            state.ui.pendingAction = action;
+        },
+        SET_PENDING_PRODUCT(state, product) {
+            state.ui.pendingProduct = product;
+        },
+        CLEAR_PENDING(state) {
+            state.ui.pendingAction = null;
+            state.ui.pendingProduct = null;
+        },
         
         setSearchQuery(state,query){
             state.searchQuery = query;
         },
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6b8cfcf (before checkout, addtocart check login)
         setCheckoutData(state, payload) {
             state.checkout = payload;
         },

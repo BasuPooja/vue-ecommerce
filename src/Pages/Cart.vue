@@ -205,14 +205,12 @@ export default {
 =======
 >>>>>>> 78a113d (checkout working problem solved after adding login modal)
     goToCheckout() {
-      const isAuth = this.$store.getters["auth/isAuthenticated"];
-
-      if (!isAuth) {
-        // 🔥 open login modal via event bus or store
-        this.$store.commit("ui/OPEN_LOGIN_MODAL");
-      } else {
-        this.$router.push("/checkout");
+      if (!this.$store.getters["auth/isAuthenticated"]) {
+        this.$store.commit("SET_PENDING_ACTION", "checkout");
+        this.$store.commit("OPEN_LOGIN_MODAL");
+        return;
       }
+      this.$router.push("/checkout");
     }
   }
 };

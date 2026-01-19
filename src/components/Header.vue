@@ -111,7 +111,7 @@
     <!-- LOGIN MODAL -->
     <LoginModal
       v-if="showLoginModal"
-      @close="showLoginModal = false"
+      @close="$store.commit('CLOSE_LOGIN_MODAL')"
       @success="onLoginSuccess"
       @switchToSignup="openSignup"
       />
@@ -122,7 +122,6 @@
       @close="showSignupModal = false"
       @switchToLogin="openLogin"
     />
-
   </header>
 </template>
 
@@ -139,7 +138,6 @@ export default {
       searchItem: "",
       debounceTimer: null,
       showDropdown: false,
-      showLoginModal: false,
       showSignupModal: false
     };
   },
@@ -149,6 +147,10 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters["auth/isAuthenticated"];
+    },
+
+    showLoginModal() {
+      return this.$store.state.ui.showLoginModal;
     },
 
     username() {
@@ -187,30 +189,42 @@ export default {
     }, 
 
     openLoginModal() {
-      this.showLoginModal = true;
+      this.$store.commit("OPEN_LOGIN_MODAL");
     },
 
     openSignup() {
-      this.showLoginModal = false;
+      this.$store.commit("CLOSE_LOGIN_MODAL");
       this.showSignupModal = true;
     },
 
     openLogin() {
       this.showSignupModal = false;
-      this.showLoginModal = true;
+      this.$store.commit("OPEN_LOGIN_MODAL");
     },
 
     onLoginSuccess() {
-      this.showLoginModal = false;
-      this.showSignupModal = false;
+      const { pendingAction, pendingProduct } = this.$store.state.ui;
+
+      this.$store.commit("CLOSE_LOGIN_MODAL");
+
+      if (pendingAction === "add-to-cart" && pendingProduct) {
+        this.$store.commit("addItem", pendingProduct);
+      }
+
+      if (pendingAction === "checkout") {
+        this.$router.push("/checkout");
+      }
+
+      this.$store.commit("CLEAR_PENDING");
     },
 
     goToCart() {
       if (!this.isLoggedIn) {
-        this.showLoginModal = true;
-      } else {
-        this.$router.push("/cart");
+        this.$store.commit("SET_PENDING_ACTION", "checkout");
+        this.$store.commit("OPEN_LOGIN_MODAL");
+        return;
       }
+      this.$router.push("/cart");
     },
 
     toggleDropdown(event) {
@@ -228,7 +242,7 @@ export default {
     logout() {
       this.showDropdown = false;
       this.$store.dispatch("auth/logout");
-      this.showLoginModal = true;
+      this.$store.commit("OPEN_LOGIN_MODAL");
     }
   }
 };
