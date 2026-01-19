@@ -78,11 +78,22 @@
             class="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50"
           >
             <router-link
+              v-if="isAdmin"
+              to="/admin"
+              class="block px-4 py-2 text-sm font-semibold text-pink-600 hover:bg-gray-100"
+            >
+              Admin Dashboard
+            </router-link>
+
+            <router-link
               to="/profile"
               class="block px-4 py-2 text-sm hover:bg-gray-100"
             >
               Profile
             </router-link>
+
+            <hr class="my-1" />
+
             <button
               @click="logout"
               class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
@@ -148,6 +159,14 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters["auth/isAuthenticated"];
+    },
+
+    currentUser() {
+      return this.$store.getters["auth/currentUser"];
+    },
+
+    isAdmin() {
+      return this.currentUser?.role === "admin";
     },
 
     showLoginModal() {
@@ -221,7 +240,7 @@ export default {
 
     goToCart() {
       if (!this.isLoggedIn) {
-        this.$store.commit("ui/SET_PENDING_ACTION", "checkout");
+        this.$store.commit("ui/SET_PENDING_ACTION",{type: "checkout"});
         this.$store.commit("ui/OPEN_LOGIN_MODAL");
         return;
       }
@@ -243,7 +262,7 @@ export default {
     logout() {
       this.showDropdown = false;
       this.$store.dispatch("auth/logout");
-      this.$store.commit("ui/OPEN_LOGIN_MODAL");
+      this.$router.push("/");
     }
   }
 };
