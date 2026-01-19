@@ -81,6 +81,7 @@
         />
 
         <button
+<<<<<<< HEAD
           @click="applyCoupon"
           class="mt-3 bg-blue-600 text-white px-5 py-2 rounded w-full"
         >
@@ -124,6 +125,8 @@
       </div>
 
         <button
+=======
+>>>>>>> 78a113d (checkout working problem solved after adding login modal)
           @click="goToCheckout"
           class="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700"
         >
@@ -195,9 +198,12 @@ export default {
         qty: Number(qty)
       });
     },
+<<<<<<< HEAD
     applyCoupon() {
       this.$store.commit("applyCoupon", this.couponCode);
     },
+=======
+>>>>>>> 78a113d (checkout working problem solved after adding login modal)
     goToCheckout() {
       const isAuth = this.$store.getters["auth/isAuthenticated"];
 
