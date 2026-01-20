@@ -123,51 +123,13 @@
         <span>Payable:</span>
         <span>₹ {{ finalTotal }}</span>
       </div>
+<<<<<<< HEAD
 >>>>>>> 718e8e8 (all conflict removed)
+=======
+    </div>
+>>>>>>> 9e3f776 (Order List page added and Order Placement with Failure Handling)
 
-        <button
-          @click="applyCoupon"
-          class="mt-3 bg-blue-600 text-white px-5 py-2 rounded w-full"
-        >
-          Apply Coupon
-        </button>
-
-        <p v-if="couponError" class="text-red-500 mt-2 text-sm">
-          {{ couponError }}
-        </p>
-
-        <p v-if="coupon" class="text-green-600 mt-2 text-sm">
-          Coupon applied: {{ coupon.code }}
-        </p>
-      </div>
-
-      <!-- TOTALS -->
       <div class="mt-10 max-w-sm border-t pt-6">
-      <div class="flex justify-between mb-2">
-        <span>Subtotal:</span>
-        <span>₹ {{ subtotal }}</span>
-      </div>
-
-      <div v-if="coupon" class="flex justify-between mb-2 text-green-600">
-        <span>Discount:</span>
-        <span>- ₹ {{ discount }}</span>
-      </div>
-
-      <div class="flex justify-between mb-2">
-        <span>Tax ({{ (taxRate*100).toFixed(0) }}%):</span>
-        <span>₹ {{ tax }}</span>
-      </div>
-
-      <div class="flex justify-between mb-2">
-        <span>Shipping:</span>
-        <span>₹ {{ shipping }}</span>
-      </div>
-
-      <div class="flex justify-between mt-4 text-2xl font-bold">
-        <span>Payable:</span>
-        <span>₹ {{ finalTotal }}</span>
-      </div>
-
         <button
           @click="goToCheckout"
           class="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700"
@@ -181,6 +143,7 @@
 
 <script>
 import { products } from "@/services/products";
+
 export default {
   data() {
     return {

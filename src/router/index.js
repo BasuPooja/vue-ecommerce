@@ -7,6 +7,12 @@ import Cart from "@/pages/Cart.vue";
 import Checkout from "@/pages/Checkout.vue";
 import orderSummary from  "@/pages/OrderSummary.vue"
 import payment from "@/pages/Payment.vue"
+<<<<<<< HEAD
+=======
+import AdminDashboard from "@/pages/AdminDashboard.vue";
+import OrderList from "@/pages/OrderList.vue";
+
+>>>>>>> 9e3f776 (Order List page added and Order Placement with Failure Handling)
 const routes = [
     { 
         path: "/",
@@ -40,6 +46,14 @@ const routes = [
         component: Checkout,
         meta: { requiresAuth: true }
     },
+
+    {
+        path: "/orders",
+        name: "OrderList",
+        component: OrderList,
+        props: true,
+    },
+
     {
         path: "/orderSummary",
         name: "OrderSummary",
@@ -51,7 +65,8 @@ const routes = [
         name: "payment",
         component: payment,
         meta: { requiresAuth: true }
-    }
+    },
+
 
 ];
 

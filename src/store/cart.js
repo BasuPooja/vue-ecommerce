@@ -2,6 +2,7 @@
 import { createStore } from "vuex";
 import { coupons } from "@/services/coupons";
 import auth from "./modules/auth";
+import ui from "./modules/ui";
 
 export default createStore({
     state(){
@@ -32,6 +33,7 @@ export default createStore({
                 shipping: 0,
                 finalTotal: 0
             },
+            orders: []
         };
     },
     mutations:{
@@ -195,6 +197,16 @@ export default createStore({
                 shipping,
                 finalTotal
             };
+
+            state.orders.push({
+            id: state.orderId,
+            checkout: state.checkout,
+            items: state.orderItems,
+            summary: state.orderSummary,
+            paidAmount: finalTotal,
+            date: new Date(),
+            status: "Paid"
+        });
         },
         clearCart(state) {
             state.cart = [];
@@ -271,6 +283,7 @@ export default createStore({
         }
     },
     modules: {
-        auth
+        auth,
+        ui
     }
 });
