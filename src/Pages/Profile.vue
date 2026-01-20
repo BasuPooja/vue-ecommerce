@@ -74,7 +74,7 @@ export default {
 
   methods: {
     saveProfile() {
-      this.$store.commit("UPDATE_PROFILE", {
+      this.$store.commit("auth/UPDATE_PROFILE", {
         username: this.form.username
       });
 

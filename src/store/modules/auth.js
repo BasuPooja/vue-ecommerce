@@ -58,7 +58,7 @@ export default {
           // avatar: "https://i.pravatar.cc/150?img=3"
         },
       });
-      
+      commit("loadUserCart", null, { root: true });
       return true;
     },
 
