@@ -83,6 +83,20 @@
             >
               Profile
             </router-link>
+<<<<<<< HEAD
+=======
+
+            <!-- My Orders -->
+            <router-link
+              to="/orders"
+              class="block px-4 py-2 text-sm hover:bg-gray-100"
+            >
+              My Orders
+            </router-link>
+
+            <hr class="my-1" />
+
+>>>>>>> 2fcfca0 (Profile page added can edit and view)
             <button
               @click="logout"
               class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"

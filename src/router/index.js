@@ -42,8 +42,17 @@ const routes = [
         name: "payment",
         component: payment,
         meta: { requiresAuth: true }
+<<<<<<< HEAD
     }
 
+=======
+    },
+    {
+        path: "/profile",
+        component: () => import("@/pages/Profile.vue"),
+        meta: { requiresAuth: true }
+    },
+>>>>>>> 2fcfca0 (Profile page added can edit and view)
 ];
 
 

@@ -32,6 +32,10 @@ export default createStore({
                 shipping: 0,
                 finalTotal: 0
             },
+<<<<<<< HEAD
+=======
+            orders: JSON.parse(localStorage.getItem("orders")) || [],
+>>>>>>> 2fcfca0 (Profile page added can edit and view)
         };
     },
     mutations:{
@@ -195,6 +199,22 @@ export default createStore({
                 shipping,
                 finalTotal
             };
+<<<<<<< HEAD
+=======
+
+            const newOrder = {
+                id: state.orderId,
+                checkout: state.checkout,
+                items: state.orderItems,
+                summary: state.orderSummary,
+                paidAmount: finalTotal,
+                date: new Date(),
+                status: "Paid"
+            };
+            state.orders.unshift(newOrder);
+            localStorage.setItem("orders", JSON.stringify(state.orders));
+
+>>>>>>> 2fcfca0 (Profile page added can edit and view)
         },
         clearCart(state) {
             state.cart = [];
@@ -268,6 +288,9 @@ export default createStore({
         },
         orderSummary(state) {
             return state.orderSummary;
+        },
+        orders(state) {
+            return state.orders;
         }
     },
     modules: {
