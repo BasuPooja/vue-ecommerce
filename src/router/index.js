@@ -1,4 +1,3 @@
-// import { createRouter, createWebHistory } from "vue-router";
 import { createWebHistory, createRouter } from "vue-router";
 
 import store from "@/store/cart";
@@ -14,6 +13,16 @@ const routes = [
         name: "Home",
         component:Home 
     },
+<<<<<<< HEAD
+=======
+
+    {
+        path: "/admin",
+        name: "AdminDashboard",
+        component: AdminDashboard,
+        meta: { requiresAuth: true, role: "admin" }
+    },
+>>>>>>> 718e8e8 (all conflict removed)
    
     { 
         path: "/product/:id", 
@@ -57,6 +66,7 @@ router.beforeEach((to, from, next) => {
     const user = store.state.auth?.user;
 
     if(to.meta.requiresAuth && !isAuth) {
+<<<<<<< HEAD
         next("/login");
         return;
     } 
@@ -73,6 +83,17 @@ router.beforeEach((to, from, next) => {
     
     next();
 
+=======
+        store.commit("ui/OPEN_LOGIN_MODAL");
+        return next(false);
+    } 
+
+    if (to.meta.role && user?.role !== to.meta.role) {
+        return next("/");
+    } 
+    
+    next();
+>>>>>>> 718e8e8 (all conflict removed)
 });
 
 export default router;

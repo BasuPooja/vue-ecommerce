@@ -78,11 +78,28 @@
             class="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50"
           >
             <router-link
+<<<<<<< HEAD
+=======
+              v-if="isAdmin"
+              to="/admin"
+              class="block px-4 py-2 text-sm font-semibold text-pink-600 hover:bg-gray-100"
+            >
+              Admin Dashboard
+            </router-link>
+
+            <router-link
+>>>>>>> 718e8e8 (all conflict removed)
               to="/profile"
               class="block px-4 py-2 text-sm hover:bg-gray-100"
             >
               Profile
             </router-link>
+<<<<<<< HEAD
+=======
+
+            <hr class="my-1" />
+
+>>>>>>> 718e8e8 (all conflict removed)
             <button
               @click="logout"
               class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
@@ -111,7 +128,11 @@
     <!-- LOGIN MODAL -->
     <LoginModal
       v-if="showLoginModal"
+<<<<<<< HEAD
       @close="showLoginModal = false"
+=======
+      @close="$store.commit('ui/CLOSE_LOGIN_MODAL')"
+>>>>>>> 718e8e8 (all conflict removed)
       @success="onLoginSuccess"
       @switchToSignup="openSignup"
       />
@@ -122,7 +143,10 @@
       @close="showSignupModal = false"
       @switchToLogin="openLogin"
     />
+<<<<<<< HEAD
 
+=======
+>>>>>>> 718e8e8 (all conflict removed)
   </header>
 </template>
 
@@ -151,6 +175,21 @@ export default {
       return this.$store.getters["auth/isAuthenticated"];
     },
 
+<<<<<<< HEAD
+=======
+    currentUser() {
+      return this.$store.getters["auth/currentUser"];
+    },
+
+    isAdmin() {
+      return this.currentUser?.role === "admin";
+    },
+
+    showLoginModal() {
+      return this.$store.state.ui.showLoginModal;
+    },
+
+>>>>>>> 718e8e8 (all conflict removed)
     username() {
       return this.$store.getters["auth/username"];
     },
@@ -191,26 +230,58 @@ export default {
     },
 
     openSignup() {
+<<<<<<< HEAD
       this.showLoginModal = false;
+=======
+      this.$store.commit("ui/CLOSE_LOGIN_MODAL");
+>>>>>>> 718e8e8 (all conflict removed)
       this.showSignupModal = true;
     },
 
     openLogin() {
       this.showSignupModal = false;
+<<<<<<< HEAD
       this.showLoginModal = true;
     },
 
     onLoginSuccess() {
       this.showLoginModal = false;
       this.showSignupModal = false;
+=======
+      this.$store.commit("ui/OPEN_LOGIN_MODAL");
+    },
+
+    onLoginSuccess() {
+      const { pendingAction, pendingProduct } = this.$store.state.ui || {};
+
+      this.$store.commit("ui/CLOSE_LOGIN_MODAL");
+
+      if (pendingAction === "add-to-cart" && pendingProduct) {
+        this.$store.commit("addItem", pendingProduct);
+      }
+
+      if (pendingAction === "checkout") {
+        this.$router.push("/checkout");
+      }
+
+      this.$store.commit("ui/CLEAR_PENDING");
+>>>>>>> 718e8e8 (all conflict removed)
     },
 
     goToCart() {
       if (!this.isLoggedIn) {
+<<<<<<< HEAD
         this.showLoginModal = true;
       } else {
         this.$router.push("/cart");
       }
+=======
+        this.$store.commit("ui/SET_PENDING_ACTION",{type: "checkout"});
+        this.$store.commit("ui/OPEN_LOGIN_MODAL");
+        return;
+      }
+      this.$router.push("/cart");
+>>>>>>> 718e8e8 (all conflict removed)
     },
 
     toggleDropdown(event) {
@@ -228,7 +299,11 @@ export default {
     logout() {
       this.showDropdown = false;
       this.$store.dispatch("auth/logout");
+<<<<<<< HEAD
       this.showLoginModal = true;
+=======
+      this.$router.push("/");
+>>>>>>> 718e8e8 (all conflict removed)
     }
   }
 };

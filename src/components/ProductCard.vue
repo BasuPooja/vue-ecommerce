@@ -70,6 +70,20 @@ export default {
 
   methods: {
     addCart() {
+<<<<<<< HEAD
+=======
+      const isLoggedIn = this.$store.getters["auth/isAuthenticated"];
+
+      if (!isLoggedIn) {
+        this.$store.commit("ui/SET_PENDING_ACTION", {
+        type: "add-to-cart",
+        product: this.product
+      });
+        this.$store.commit("ui/SET_PENDING_PRODUCT", this.product);
+        this.$store.commit("ui/OPEN_LOGIN_MODAL");
+        return;
+      }
+>>>>>>> 718e8e8 (all conflict removed)
       this.$store.commit("addItem", this.product);
     }
   }

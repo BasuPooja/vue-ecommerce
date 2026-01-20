@@ -149,7 +149,13 @@ export default {
       const isLoggedIn = this.$store.getters["auth/isAuthenticated"];
 
       if (!isLoggedIn) {
+<<<<<<< HEAD
         this.$router.push("/login");
+=======
+        this.$store.commit("ui/SET_PENDING_ACTION", "add-to-cart");
+        this.$store.commit("ui/SET_PENDING_PRODUCT", this.product);
+        this.$store.commit("ui/OPEN_LOGIN_MODAL");
+>>>>>>> 718e8e8 (all conflict removed)
         return;
       }
 
