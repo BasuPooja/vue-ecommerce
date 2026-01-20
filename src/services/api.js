@@ -1,16 +1,12 @@
 import axios from "axios";
 import store from "@/store/cart";
-<<<<<<< HEAD
 import router from "@/router";
 
-=======
->>>>>>> 7a10bb5 (Admin Dashbord added)
 
 const API = axios.create({
   baseURL: "https://dummyjson.com",
 });
 
-<<<<<<< HEAD
 // ================== REQUEST INTERCEPTOR ====================== 
 API.interceptors.request.use(
   (config) => {
@@ -19,8 +15,9 @@ API.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+});
 
-=======
 // ==========Attach access token to every request=========
 const PUBLIC_ENDPOINTS = ["/products", "/products/"];
 
@@ -35,7 +32,6 @@ API.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`;
       }
     }
->>>>>>> 7a10bb5 (Admin Dashbord added)
     return config;
   },
   (error) => Promise.reject(error)
