@@ -8,7 +8,7 @@
       <div class="flex gap-4 mt-4 md:mt-0">
         <router-link to="/" class="hover:text-white">Home</router-link>
         <router-link to="/cart" class="hover:text-white">Cart</router-link>
-        <router-link to="/login" class="hover:text-white">Login</router-link>
+        <!-- <router-link to="/login" class="hover:text-white">Login</router-link> -->
       </div>
     </div>
   </footer>

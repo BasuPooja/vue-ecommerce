@@ -64,7 +64,7 @@ export default {
   methods: {
     async login() {
       try {
-        await this.$store.dispatch("auth/login", {
+        const res = await this.$store.dispatch("auth/login", {
           username: this.username,
           password: this.password
         });

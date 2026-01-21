@@ -8,17 +8,27 @@ import Cart from "@/pages/Cart.vue";
 import Checkout from "@/pages/Checkout.vue";
 import orderSummary from  "@/pages/OrderSummary.vue"
 import payment from "@/pages/Payment.vue"
+import AdminDashboard from "@/pages/AdminDashboard.vue";
+
 const routes = [
     { 
         path: "/",
         name: "Home",
         component:Home 
     },
+
+    {
+        path: "/admin",
+        name: "AdminDashboard",
+        component: AdminDashboard,
+        meta: { requiresAuth: true, role: "admin" }
+    },
    
     { 
         path: "/product/:id", 
         component: ProductDetails 
     },
+    
     { 
         path: "/cart", 
         name:"Cart",
@@ -57,22 +67,15 @@ router.beforeEach((to, from, next) => {
     const user = store.state.auth?.user;
 
     if(to.meta.requiresAuth && !isAuth) {
-        next("/login");
-        return;
+        store.commit("ui/OPEN_LOGIN_MODAL");
+        return next(false);
     } 
 
-    if (to.meta.guestOnly && isAuth) {
-        next("/");
-        return;
-    }
-    
     if (to.meta.role && user?.role !== to.meta.role) {
-        next("/");
-        return;
+        return next("/");
     } 
     
     next();
-
 });
 
 export default router;
