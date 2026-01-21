@@ -18,6 +18,13 @@ export default {
       localStorage.setItem("user", JSON.stringify(payload.user));
     },
 
+    UPDATE_PROFILE(state, payload) {
+       if (state.user) {
+        state.user.username = payload.username;
+        localStorage.setItem("user", JSON.stringify(state.user));
+      }
+    },
+
     LOGOUT(state) {
       state.accessToken = null;
       state.user = null;
@@ -51,7 +58,7 @@ export default {
           // avatar: "https://i.pravatar.cc/150?img=3"
         },
       });
-      
+      commit("loadUserCart", null, { root: true });
       return true;
     },
 

@@ -3,9 +3,15 @@ import { createStore } from "vuex";
 import { coupons } from "@/services/coupons";
 import auth from "./modules/auth";
 
+function getCartKey() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user ? `cart_${user.username}` : "cart_guest";
+}
+
 export default createStore({
     state(){
-        const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartKey = getCartKey();
+        const savedCart = JSON.parse(localStorage.getItem(cartKey)) || [];
         
         return{
             cart: savedCart,
@@ -32,9 +38,17 @@ export default createStore({
                 shipping: 0,
                 finalTotal: 0
             },
+<<<<<<< HEAD
+=======
+            orders: JSON.parse(localStorage.getItem("orders")) || [],
+>>>>>>> 2fcfca0 (Profile page added can edit and view)
         };
     },
     mutations:{
+        loadUserCart(state) {
+            const cartKey = getCartKey();
+            state.cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+        },
         addItem(state,product){
             const existing = state.cart.find(
                 item => item.id === product.id
@@ -56,7 +70,7 @@ export default createStore({
             state.discount = 0;
             state.couponError = "";
 
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+            localStorage.setItem(getCartKey(), JSON.stringify(state.cart));
         },
 
         removeItem(state,id){
@@ -65,7 +79,8 @@ export default createStore({
             state.coupon = null;
             state.discount = 0;
             state.couponError = "";
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+
+            localStorage.setItem(getCartKey(), JSON.stringify(state.cart));
         },
 
         updateQuantity(state, {id, qty}){
@@ -82,8 +97,8 @@ export default createStore({
             state.coupon = null;
             state.discount = 0;
             state.couponError = "";
-
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+ 
+            localStorage.setItem(getCartKey(), JSON.stringify(state.cart));
         },   
         
         setSearchQuery(state,query){
@@ -103,13 +118,8 @@ export default createStore({
                 0
             );
             state.orderId = "ORD-" + Date.now();
-            
-            // state.coupon = null;
-            // state.discount = 0;
-            // state.couponError = "";
-            // state.cart = [];
 
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+            localStorage.setItem(getCartKey(), JSON.stringify(state.cart));
         },
 
         applyCoupon(state, code) {
@@ -195,13 +205,30 @@ export default createStore({
                 shipping,
                 finalTotal
             };
+<<<<<<< HEAD
+=======
+
+            const newOrder = {
+                id: state.orderId,
+                checkout: state.checkout,
+                items: state.orderItems,
+                summary: state.orderSummary,
+                paidAmount: finalTotal,
+                date: new Date(),
+                status: "Paid"
+            };
+            state.orders.unshift(newOrder);
+            localStorage.setItem("orders", JSON.stringify(state.orders));
+
+>>>>>>> 2fcfca0 (Profile page added can edit and view)
         },
         clearCart(state) {
             state.cart = [];
             state.coupon = null;
             state.discount = 0;
             state.couponError = "";
-            localStorage.setItem("cart", JSON.stringify(state.cart));
+            
+            localStorage.setItem(getCartKey(), JSON.stringify(state.cart));
         }
     },
     getters:{
@@ -268,6 +295,9 @@ export default createStore({
         },
         orderSummary(state) {
             return state.orderSummary;
+        },
+        orders(state) {
+            return state.orders;
         }
     },
     modules: {
