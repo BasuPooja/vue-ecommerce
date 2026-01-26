@@ -79,7 +79,8 @@
           placeholder="Enter coupon code"
           class="border px-4 py-2 rounded w-full"
         />
-
+<<<<<<< HEAD
+=======
         <button
           @click="applyCoupon"
           class="mt-3 bg-blue-600 text-white px-5 py-2 rounded w-full"
@@ -122,7 +123,13 @@
         <span>Payable:</span>
         <span>₹ {{ finalTotal }}</span>
       </div>
+<<<<<<< HEAD
+>>>>>>> 718e8e8 (all conflict removed)
+=======
+    </div>
+>>>>>>> 9e3f776 (Order List page added and Order Placement with Failure Handling)
 
+      <div class="mt-10 max-w-sm border-t pt-6">
         <button
           @click="goToCheckout"
           class="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700"
@@ -136,6 +143,7 @@
 
 <script>
 import { products } from "@/services/products";
+
 export default {
   data() {
     return {
@@ -195,6 +203,7 @@ export default {
         qty: Number(qty)
       });
     },
+<<<<<<< HEAD
     applyCoupon() {
       this.$store.commit("applyCoupon", this.couponCode);
     },
@@ -203,6 +212,18 @@ export default {
 
       if (!isAuth) {
         // 🔥 open login modal via event bus or store
+=======
+
+    applyCoupon() {
+      this.$store.commit("applyCoupon", this.couponCode);
+    },
+
+    goToCheckout() {
+      const isAuth = this.$store.getters["auth/isAuthenticated"];
+
+      if (!isAuth) {
+        // open login modal via event bus or store
+>>>>>>> 718e8e8 (all conflict removed)
         this.$store.commit("ui/OPEN_LOGIN_MODAL");
       } else {
         this.$router.push("/checkout");

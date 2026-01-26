@@ -1,4 +1,3 @@
-// import { createRouter, createWebHistory } from "vue-router";
 import { createWebHistory, createRouter } from "vue-router";
 
 import store from "@/store/cart";
@@ -8,12 +7,28 @@ import Cart from "@/pages/Cart.vue";
 import Checkout from "@/pages/Checkout.vue";
 import orderSummary from  "@/pages/OrderSummary.vue"
 import payment from "@/pages/Payment.vue"
+<<<<<<< HEAD
+=======
+import AdminDashboard from "@/pages/AdminDashboard.vue";
+import OrderList from "@/pages/OrderList.vue";
+
+>>>>>>> 9e3f776 (Order List page added and Order Placement with Failure Handling)
 const routes = [
     { 
         path: "/",
         name: "Home",
         component:Home 
     },
+<<<<<<< HEAD
+=======
+
+    {
+        path: "/admin",
+        name: "AdminDashboard",
+        component: AdminDashboard,
+        meta: { requiresAuth: true, role: "admin" }
+    },
+>>>>>>> 718e8e8 (all conflict removed)
    
     { 
         path: "/product/:id", 
@@ -31,6 +46,14 @@ const routes = [
         component: Checkout,
         meta: { requiresAuth: true }
     },
+
+    {
+        path: "/orders",
+        name: "OrderList",
+        component: OrderList,
+        props: true,
+    },
+
     {
         path: "/orderSummary",
         name: "OrderSummary",
@@ -42,7 +65,8 @@ const routes = [
         name: "payment",
         component: payment,
         meta: { requiresAuth: true }
-    }
+    },
+
 
 ];
 
@@ -57,6 +81,7 @@ router.beforeEach((to, from, next) => {
     const user = store.state.auth?.user;
 
     if(to.meta.requiresAuth && !isAuth) {
+<<<<<<< HEAD
         next("/login");
         return;
     } 
@@ -73,6 +98,17 @@ router.beforeEach((to, from, next) => {
     
     next();
 
+=======
+        store.commit("ui/OPEN_LOGIN_MODAL");
+        return next(false);
+    } 
+
+    if (to.meta.role && user?.role !== to.meta.role) {
+        return next("/");
+    } 
+    
+    next();
+>>>>>>> 718e8e8 (all conflict removed)
 });
 
 export default router;

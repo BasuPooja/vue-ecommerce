@@ -54,6 +54,12 @@
       Final Paid Amount: ₹{{ finalPaidAmount }}
     </h3>
 
+    <button
+      @click="$router.push('/orders')"
+      class="mt-8 bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
+    >
+      Go to My Orders
+    </button>    
     </div>
   </div>
 </template>

@@ -37,7 +37,7 @@
             
             <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700"
             >
-                Place Order
+                {{ loading ? "Placing Order..." : "Place Order" }}
             </button>
         </form>
     </div>
@@ -45,56 +45,76 @@
 
 
 <script>
-    export default{
-        data() {
-            return{
-                form: {
-                    name: "",
-                    email: "",
-                    address: ""
-                },
-                errors: {}
-            };
-        },
-        methods: {
-            validate() {
-                this.errors= {};
 
-                if(!this.form.name){
-                    this.errors.name = "Name is required";
-                }
-
-                if(!this.form.email){
-                    this.errors.name = "Email is required";
-                }
-                else if (!/\S+@\S+\.\S+/.test(this.form.email)) {
-                    this.errors.email = "Invalid email format";
-                } 
-
-                if(!this.form.address){
-                    this.errors.address = "Address is required";
-                }
-
-                return Object.keys(this.errors).length ===0;
+export default{
+    data() {
+        return{
+            form: {
+                name: "",
+                email: "",
+                address: ""
             },
+            errors: {}
+        };
+    },
+    methods: {
+        validate() {
+            this.errors= {};
+
+            if(!this.form.name){
+                this.errors.name = "Name is required";
+            }
+
+            if(!this.form.email){
+                this.errors.name = "Email is required";
+            }
+            else if (!/\S+@\S+\.\S+/.test(this.form.email)) {
+                this.errors.email = "Invalid email format";
+            } 
+
+            if(!this.form.address){
+                this.errors.address = "Address is required";
+            }
+
+            return Object.keys(this.errors).length ===0;
+        },
 
 
-            submitOrder(){
-                if(!this.validate())
-                    return;
+        async submitOrder() {
+            if (!this.validate()) return;
+
+            this.loading = true;
+            this.apiError = "";
+
+            try {
+                if (!this.validate()) return;
                 
-                // PLace order
+                // SAVE ORDER TO VUEX
                 this.$store.commit("placeOrder", {
                     checkout: this.form
                 });
 
-                alert("Order placed sucessfully!!");
-                
-                // GO TO ORDER SUMMARY PAGE
-                this.$store.commit("setPayableAmount");
+                // GO TO PAYMENT PAGE
                 this.$router.push("/payment");
+
+            } catch (err) {
+                this.apiError =
+                err.type === "NETWORK_ERROR"
+                    ? "Network issue. Please retry."
+                    : "Something went wrong.";
+            } finally {
+                this.loading = false;
             }
+            },
+
+            placeOrderApi() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    Math.random() > 0.4 ? resolve() : reject();
+                    }, 1000);
+            });
         }
-    };
+    }
+};
 
 </script>
